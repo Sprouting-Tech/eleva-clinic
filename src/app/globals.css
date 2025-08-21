@@ -1,26 +1,47 @@
 @import "tailwindcss";
+@import "swiper/css";
 
+/* --- Design tokens (v4: @theme) --- */
+@theme {
+  --color-brand-500: #e78f6d;
+  --color-brand-600: #d6785a;
+  --color-sand-50: #faf6f4;
+  --color-sand-100: #f5eeeb;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --shadow-soft: 0 10px 25px -10px rgb(0 0 0 / 0.15);
+}
+
+/* --- App base --- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
 }
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-sand-50);
+  color: rgb(23 23 23);
+}
+
+/* helpers */
+.container-narrow {
+  inline-size: min(100%, 768px);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+.card {
+  border-radius: var(--radius-2xl);
+  background: #fff;
+  box-shadow: var(--shadow-soft);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xl);
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+}
+.btn-primary {
+  background: var(--color-brand-500);
+  color: #fff;
 }
