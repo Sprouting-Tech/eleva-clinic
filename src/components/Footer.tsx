@@ -12,8 +12,8 @@ const NAV = [
 
 export default function Footer() {
   return (
-    <footer className="mt-16 text-sm bg-gradient-to-t from-[#FFE9E5] to-[#FFFFFF]">
-      <div className="md:mx-8 grid gap-6 py-10 md:grid-cols-4">
+    <footer className="mt-2 text-sm bg-gradient-to-t from-[#FFE9E5] to-[#FFFFFF]">
+      <div className="grid gap-6 py-10 md:grid-cols-4 max-w-[1280px] mx-auto">
         {/* Clinic IconxInfo */}
         <section className="flex flex-col justify-center items-center ">
           <div className="flex flex-col items-center mb-4">
