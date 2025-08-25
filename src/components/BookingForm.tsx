@@ -392,18 +392,22 @@ export default function BookingForm() {
 
         {/* Footer actions */}
         <div className="mt-10 flex justify-end gap-4">
-          <button
+          <Button
             type="button"
-            className="rounded-[15px] border-2 border-stone-900 bg-white px-6 py-3 text-sm"
+            size="xl"
+            variant="main"
+            className="rounded-[15px] border-2 border-stone-900 bg-white px-6 py-3 text-sm text-black/73"
             onClick={() =>
               setForm({ name: "", phone: "", date: "", time: "", period: "morning" })
             }
           >
             Cancel
-          </button>
-          <button
+          </Button>
+          <Button
             type="submit"
+            size="xl"
             disabled={!isValid}
+            variant="main"
             className={[
               "rounded-[15px] px-6 py-3 text-sm text-white",
               isValid
@@ -411,8 +415,8 @@ export default function BookingForm() {
                 : "cursor-not-allowed bg-stone-400",
             ].join(" ")}
           >
-            confirm
-          </button>
+            Confirm
+          </Button>
         </div>
 
         {/* Demo success */}
