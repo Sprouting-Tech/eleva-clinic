@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const NAV = [
   { href: "/", label: "Home" },
@@ -11,69 +12,131 @@ const NAV = [
 
 export default function Footer() {
   return (
-    <footer className="mt-16 border-t bg-white text-sm">
-      <div className="container-narrow grid gap-8 px-4 py-10 md:grid-cols-3">
-        {/* Clinic Info */}
-        <section>
-          <div className="text-base font-semibold">Eleva Clinic</div>
-          <p className="mt-3">
-            654/2 Rama IV Road, Maha Phruettharam,
-            <br />
-            Bang Rak, Bangkok 10500
-          </p>
-          <p className="mt-2">Opening Hours: 09:00-17:00 (Mon-Fri)</p>
-          <p className="mt-2">
-            Phone:{" "}
-            <a href="tel:0989941698" className="underline underline-offset-2">
-              098 994 1698
-            </a>
-          </p>
-          <div className="mt-3 flex gap-3">
-            {/* Social Media Links */}
-            <a href="#" aria-label="Instagram" className="btn border">
-              IG
-            </a>
-            <a href="#" aria-label="Facebook" className="btn border">
-              FB
-            </a>
-            <a href="#" aria-label="Line" className="btn border">
-              LINE
-            </a>
+    <footer className="mt-16  bg-white text-sm">
+      <div className="md:mx-8 grid gap-6 py-10 md:grid-cols-4">
+        {/* Clinic IconxInfo */}
+        <section className="flex flex-col justify-center items-center ">
+          <div className="flex flex-col  mb-4">
+            <Image
+              className="mb-6"
+              src="/images/image 1.png"
+              alt="Eleva Clinic Logo"
+              width={150}
+              height={150}
+            />
+            <div className="flex justify-between">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+              >
+                <Image
+                  src="/images/facebook.png"
+                  alt="Facebook"
+                  width={30}
+                  height={30}
+                />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+              >
+                <Image
+                  src="/images/instagram.png"
+                  alt="Instagram"
+                  width={30}
+                  height={30}
+                />
+              </a>
+              <a
+                href="https://www.tiktok.com/explore"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok"
+              >
+                <Image
+                  src="/images/tiktok.png"
+                  alt="TikTok"
+                  width={30}
+                  height={30}
+                />
+              </a>
+              <a
+                href="https://line.me"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Line"
+              >
+                <Image
+                  src="/images/line.png"
+                  alt="Line"
+                  width={30}
+                  height={30}
+                />
+              </a>
+            </div>
           </div>
         </section>
 
-        {/* Navigation */}
-        <nav className="grid grid-cols-2 gap-2 md:grid-cols-1">
-          {NAV.map((n) => (
-            <Link
-              key={n.href}
-              href={n.href}
-              className="hover:text-black text-neutral-700"
-            >
-              {n.label}
-            </Link>
-          ))}
-        </nav>
+        {/* Address */}
+        <section className="grid grid-cols-2 gap-2 md:grid-cols-1 px-6 md:px-0">
+          <div>
+            <h3 className="text-[#B97A65] md:text-xl pb-2">ADDRESS</h3>
+            <p className="text-[16px] md:text-md font-[500]">
+              654/2 Rama IV Road, Maha Phruettharam Subdistrict, Bang Rak
+              District, Bangkok <br /> 10500
+            </p>
+          </div>
+          <div>
+            <h3 className="text-[#B97A65] md:text-xl pb-2">Opening Hours</h3>
+            <p className="text-md font-[500]">
+              9:00AM - 5:00PM (Monday to Friday)
+            </p>
+          </div>
+        </section>
 
         {/* Notes / CTA */}
-        <section>
-          <div className="font-semibold">Need help?</div>
-          <p className="mt-2 text-neutral-600">
-            Chat or call us for more information about services and promotions.
-          </p>
-          <Link href="/booking" className="btn btn-primary mt-3 inline-flex">
-            Book Now
-          </Link>
+        <section className="md:block hidden">
+          <div>
+            <h3 className="text-[#B97A65] md:text-xl pb-2">Our services</h3>
+            <p className="font-[500] mb-5">Surgery</p>
+            <p className="font-[500] mb-5">Ultraformer|||</p>
+            <p className="font-[500] mb-5">PRP</p>
+            <p className="font-[500] mb-5">Pico</p>
+          </div>
         </section>
-      </div>
 
-      <div className="border-t bg-sand-100/60">
-        <div className="container-narrow flex items-center justify-center px-4 py-4">
-          <p>
-            © {new Date().getFullYear()} Eleva Clinic. All rights reserved.
-          </p>
-        </div>
+       <section className="md:block hidden">
+          <div>
+            <h3 className="text-[#B97A65] md:text-xl pb-2">Explore</h3>
+            <Link
+              href="/about"
+              className="font-[500] mb-5 block hover:text-[#B97A65]"
+            >
+              About Us
+            </Link>
+
+            <p className="font-[500] mb-5">Treatments</p>
+            <p className="font-[500] mb-5">Reviews</p>
+            <Link
+              href="/contact"
+              className="font-[500] mb-5 block hover:text-[#B97A65]"
+            >
+              Contact Us
+            </Link>
+          </div>
+        </section>
       </div>
     </footer>
   );
 }
+
+
+
+
+
+
+
