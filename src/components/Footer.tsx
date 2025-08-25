@@ -12,11 +12,11 @@ const NAV = [
 
 export default function Footer() {
   return (
-    <footer className="mt-16  bg-white text-sm">
+    <footer className="mt-16 text-sm bg-gradient-to-t from-[#FFE9E5] to-[#FFFFFF]">
       <div className="md:mx-8 grid gap-6 py-10 md:grid-cols-4">
         {/* Clinic IconxInfo */}
         <section className="flex flex-col justify-center items-center ">
-          <div className="flex flex-col  mb-4">
+          <div className="flex flex-col items-center mb-4">
             <Image
               className="mb-6"
               src="/images/image 1.png"
@@ -24,7 +24,7 @@ export default function Footer() {
               width={150}
               height={150}
             />
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-2 md:gap-3">
               <a
                 href="https://facebook.com"
                 target="_blank"
@@ -36,6 +36,7 @@ export default function Footer() {
                   alt="Facebook"
                   width={30}
                   height={30}
+                  className="w-10 h-10 md:w-[30px] md:h-[30px]"
                 />
               </a>
               <a
@@ -49,6 +50,7 @@ export default function Footer() {
                   alt="Instagram"
                   width={30}
                   height={30}
+                  className="w-10 h-10 md:w-[30px] md:h-[30px]"
                 />
               </a>
               <a
@@ -62,6 +64,7 @@ export default function Footer() {
                   alt="TikTok"
                   width={30}
                   height={30}
+                  className="w-10 h-10 md:w-[30px] md:h-[30px]"
                 />
               </a>
               <a
@@ -75,6 +78,7 @@ export default function Footer() {
                   alt="Line"
                   width={30}
                   height={30}
+                  className="w-10 h-10 md:w-[30px] md:h-[30px]"
                 />
               </a>
             </div>
@@ -109,7 +113,7 @@ export default function Footer() {
           </div>
         </section>
 
-       <section className="md:block hidden">
+        <section className="md:block hidden">
           <div>
             <h3 className="text-[#B97A65] md:text-xl pb-2">Explore</h3>
             <Link
