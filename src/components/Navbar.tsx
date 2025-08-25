@@ -37,7 +37,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-white/80 backdrop-blur">
-      <div className="container-narrow flex h-14 items-center justify-between">
+      <div className="px-4 md:px-8 flex h-14 items-center justify-between">
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2 font-semibold">
           {/* Logo: <Image src="/images/logo.svg" alt="Eleva Clinic" className="h-6 w-auto" /> */}
