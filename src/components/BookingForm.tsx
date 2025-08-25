@@ -113,8 +113,8 @@ export default function BookingForm() {
         {/* Row: Name + Phone */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {/* Name */}
-          <div className="space-y-2">
-            <label htmlFor="name" className="text-sm font-semibold text-stone-800">
+          <div className="flex flex-col space-y-7">
+            <label htmlFor="name" className="text-sm text-black">
               Your Name
             </label>
             <input
@@ -123,13 +123,15 @@ export default function BookingForm() {
               value={form.name}
               onChange={(e) => onChange("name", e.target.value)}
               required
-              className="h-16 w-full rounded-[28px] border-2 border-stone-400/90 px-6 text-base outline-none placeholder:text-stone-400 focus:border-stone-500 focus:ring-0"
+              className="w-full md:w-[341px] h-[73px] rounded-[20px] border-2 border-stone-400/90 px-[20px] py-[15px]
+                        text-base outline-none focus:border-stone-500 focus:ring-0
+                        placeholder:font-light placeholder:text-[20px] placeholder:leading-[20px] placeholder:text-black/60"
             />
           </div>
 
           {/* Phone */}
-          <div className="space-y-2">
-            <label htmlFor="phone" className="text-sm font-semibold text-stone-800">
+          <div className="flex flex-col space-y-7">
+            <label htmlFor="phone" className="text-sm text-black">
               Phone Number
             </label>
             <input
@@ -139,7 +141,9 @@ export default function BookingForm() {
               value={form.phone}
               onChange={(e) => onChange("phone", e.target.value)}
               required
-              className="h-16 w-full rounded-[28px] border-2 border-stone-400/90 px-6 text-base outline-none placeholder:text-stone-400 focus:border-stone-500 focus:ring-0"
+              className="w-full md:w-[341px] h-[73px] rounded-[20px] border-2 border-stone-400/90 px-[20px] py-[15px]
+                        text-base outline-none focus:border-stone-500 focus:ring-0
+                        placeholder:font-light placeholder:text-[20px] placeholder:leading-[20px] placeholder:text-black/60"
             />
             {!isPhoneValid && form.phone !== "" && (
               <p className="pt-1 text-xs text-rose-600">
@@ -149,63 +153,66 @@ export default function BookingForm() {
           </div>
         </div>
 
-        {/* Date/Time composite field */}
-        <div className="mt-10 space-y-2">
-          <label className="text-sm font-semibold text-stone-800">
-            Select Date and Time
-          </label>
+        {/* Date/Time field */}
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 mt-7">
+          <div className="flex flex-col space-y-7">
+            <label className="text-sm text-black">
+              Select Date and Time
+            </label>
 
-          {/* This is the SINGLE visible trigger that looks like your mockup input.
-              Clicking it opens the CALENDAR popover first. */}
-          <Popover open={openDate} onOpenChange={setOpenDate}>
-            <PopoverTrigger asChild>
-              <button
-                type="button"
-                aria-label="Select date and time"
-                onClick={() => setOpenDate(true)}
-                className="h-16 w-full rounded-[28px] border-2 border-stone-400/90 px-6 text-left text-base outline-none transition-colors hover:border-stone-500 focus:border-stone-500"
+            {/* opens the calendar popover */}
+            <Popover open={openDate} onOpenChange={setOpenDate}>
+              <PopoverTrigger asChild>
+                <button
+                  type="button"
+                  aria-label="Select date and time"
+                  onClick={() => setOpenDate(true)}
+                  className="w-full md:w-[341px] h-[73px] rounded-[20px] border-2 border-stone-400/90 px-[20px] py-[15px]
+                             text-base outline-none focus:border-stone-500 focus:ring-0
+                             placeholder:font-light placeholder:text-[20px] placeholder:leading-[20px] placeholder:text-black/60"
+                >
+                  <div className="flex items-center justify-between">
+                    {/* value or placeholder */}
+                    <span className={
+                      form.date || form.time 
+                        ? "text-stone-900 text-[20px] leading-[20px] font-normal" 
+                        : "text-black/60 text-[20px] leading-[20px]"}
+                    >
+                      {form.date && selectedDate
+                        ? `${format(selectedDate, "dd/MM")} , ${form.time || "Time"}`
+                        : "DD/MM , Time"}
+                    </span>
+                    {/* DropDown Arrow */}
+                    <ChevronDown className="h-4 w-4 text-black/50" />
+                  </div>
+                </button>
+              </PopoverTrigger>
+
+              {/* Calendar popup */}
+              <PopoverContent
+                align="start"
+                className="w-auto p-0"
+                sideOffset={8}
               >
-                <div className="flex items-center justify-between">
-                  {/* value or placeholder */}
-                  <span className={form.date || form.time ? "text-stone-900" : "text-stone-400"}>
-                    {form.date && selectedDate
-                      ? `${format(selectedDate, "dd/MM")} , ${form.time || "Time"}`
-                      : "DD/MM , Time"}
-                  </span>
-                  {/* DropDown Arrow */}
-                  <ChevronDown className="h-4 w-4 text-stone-400" />
-                </div>
-              </button>
-            </PopoverTrigger>
-
-            {/* Calendar popup */}
-            <PopoverContent
-              align="start"
-              className="w-auto p-0"
-              sideOffset={8}
-            >
-              <Calendar
-                mode="single"
-                selected={selectedDate}
-                onSelect={(d) => {
-                  if (!d) return;
-                  // Save date as "YYYY-MM-DD"
-                  onChange("date", toISODate(d));
-                  // Close the date popover and open the time dialog
-                  setOpenDate(false);
-                  // Small timeout to ensure the first popup fully closes
-                  setTimeout(() => setOpenTime(true), 30);
-                }}
-                // Optional: disable past days
-                disabled={{ before: new Date() }}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={(d) => {
+                    if (!d) return;
+                    onChange("date", toISODate(d));
+                    setOpenDate(false);
+                    setTimeout(() => setOpenTime(true), 30);
+                  }}
+                  // disable past days
+                  disabled={{ before: new Date() }}
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
         </div>
 
-        {/* Time selection POPUP (Dialog).
-            It appears AFTER you pick a date. */}
+        {/* pop up to appear AFTER picking a date. */}
         <Dialog open={openTime} onOpenChange={setOpenTime}>
           <DialogContent className="sm:max-w-[480px]">
             <DialogHeader>
@@ -214,7 +221,7 @@ export default function BookingForm() {
               </DialogTitle>
             </DialogHeader>
 
-            {/* Tabs (simple two buttons) */}
+            {/* simple two buttons */}
             <div className="mb-3 flex gap-3">
               {(["morning", "evening"] as const).map((p) => {
                 const active = form.period === p;
@@ -282,7 +289,7 @@ export default function BookingForm() {
         <div className="mt-10 flex justify-end gap-4">
           <button
             type="button"
-            className="rounded-[24px] border-2 border-stone-900 bg-white px-6 py-3 text-sm font-medium text-stone-900 hover:bg-stone-50"
+            className="rounded-[15px] border-2 border-stone-900 bg-white px-6 py-3 text-sm text-[#AF674F]-900 hover:bg-[#AF674F]-50"
             onClick={() =>
               setForm({ name: "", phone: "", date: "", time: "", period: "morning" })
             }
@@ -293,7 +300,7 @@ export default function BookingForm() {
             type="submit"
             disabled={!isValid}
             className={[
-              "rounded-[24px] px-6 py-3 text-sm font-semibold text-white",
+              "rounded-[15px] px-6 py-3 text-sm text-white",
               isValid
                 ? "bg-[#A96046] hover:brightness-95"
                 : "cursor-not-allowed bg-stone-400",
