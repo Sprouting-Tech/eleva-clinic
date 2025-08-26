@@ -11,22 +11,22 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Button } from "@/components/ui/button";
 
-{/* Define form type */}
+/* Define form type */
 type Form = {
   name: string;
-  phone: string;                 
-  date: string;                  
-  time: string;                  
+  phone: string;
+  date: string;
+  time: string;
   period: "morning" | "evening";
 };
 
-{/* Time Slots */}
+/* Time Slots */
 const SLOTS: Record<Form["period"], string[]> = {
   morning: ["09:00 AM", "10:00 AM", "11:00 AM"],
   evening: ["01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"],
 };
 
-{/* Helper function to format date */}
+/* Helper function to format date */
 function toISODate(d: Date) {
   const y = d.getFullYear();
   const m = String(d.getMonth() + 1).padStart(2, "0");
@@ -73,7 +73,7 @@ export default function BookingForm() {
     if (openCalendar) setTempDate(selectedDate ?? new Date());
   }, [openCalendar]); 
 
-  {/* Updaters */}
+  /* Updaters */
   function onChange<K extends keyof Form>(key: K, v: string) {
     setSubmitted(false);
     setForm((prev) => ({
@@ -82,7 +82,7 @@ export default function BookingForm() {
     }));
   }
 
-  {/* Submit */}
+  /* Submit */
   function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!isValid) return;
@@ -90,7 +90,7 @@ export default function BookingForm() {
     setSubmitted(true);
   }
 
-  {/* UI */}
+  /* UI */
   return (
     <div className="mx-auto max-w-4xl rounded-[28px] bg-stone-100 p-6 md:p-8">
       <form
@@ -176,7 +176,13 @@ export default function BookingForm() {
           <Dialog open={openCalendar} onOpenChange={setOpenCalendar}>
             <DialogContent
               showCloseButton={false}
-              className="w-[calc(100vw-24px)] md:w-auto md:max-w-none max-h-[90vh] overflow-auto rounded-[24px] p-4 md:p-6 shadow-x"
+              className="overflow-hidden
+                        p-0
+                        w-[calc(100vw-24px)]
+                        max-w-[720px]
+                        md:max-w-[760px]
+                        rounded-[24px]
+                        shadow-xl"
               
               onInteractOutside={(e) => {
                 const el = e.target as HTMLElement | null;
@@ -195,8 +201,11 @@ export default function BookingForm() {
                 <DialogTitle>Select a date</DialogTitle>
               </DialogHeader>
 
-              <div className="p-0">
-                <div className="booking-calendar mx-auto w-[min(96vw,650px)] rounded-[24px] bg-white h-[min(500px,80vh)]">
+              <div className="max-h-[80vh] overflow-auto px-6 py-6">
+                {/* Accent color */}
+                <style>{`:root { --accent:#B76851; --cell-size:44px } @media (min-width:768px){ :root{ --cell-size:56px } }`}</style>
+                {/* change: removed fixed h-[] so the calendar can breathe inside the dialog */}
+                <div className="mx-auto w-full max-w-[650px] rounded-[24px] bg-transparent">
                   <Calendar
                     mode="single"
                     selected={tempDate}
@@ -207,10 +216,8 @@ export default function BookingForm() {
                     formatters={{
                       formatWeekdayName: (date) => format(date, "EEE"),
                     }}
-                    className="w-full [--rdp-cell-size:46px]
-                              sm:[--rdp-cell-size:54px]
-                              md:[--rdp-cell-size:62px]
-                              [--rdp-months-gap:0.5rem]"
+                    /* keep your sizes; overflow is handled by proper table/grid below */
+                    className="w-full bg-transparent p-0"
                     onSelect={(d) => {
                       if (!d) return;
                       setTempDate(d);
@@ -218,8 +225,27 @@ export default function BookingForm() {
                       setOpenTime(true);
                     }}
                     classNames={{
-                                  table: "w-auto",  
-                                  day_today: "!bg-transparent !text-inherit",}}
+                      root:"w-full",
+                      table: "w-full table-fixed border-collapse",
+                      weekdays: "space-y-5",
+                      week: "",
+                      day: "p-[5px] text-center align-middle",
+
+                      /* header */
+                      month_caption: "flex justify-center items-center py-2 md:py-3",
+                      caption_label: "text-[18px] md:text-[20px] font-semibold text-stone-900",
+                      weekday: "py-2 text-center text-[13px] md:text-[14px] font-semibold text-stone-900",
+                      button_next: "rounded-md p-2 hover:bg-stone-200",
+                      button_previous: "rounded-md p-2 hover:bg-stone-200",
+
+                      /* day button (fills the cell; rounded pill; subtle hover) */
+                      day_button: "mx-auto m-[5px] grid place-items-center rounded-[8px] w-[56px] h-[34px] sm:w-[68px] sm:h-[52px] md:w-[80px] md:h-[60px] px-3 py-2 md:px-6 md:py-3 text-base font-medium leading-none select-none transition-colors hover:bg-stone-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B76851]/30",
+
+                      today: "!bg-transparent !text-inherit",       // no grey bg for today
+                      outside: "text-stone-300",                   
+                      disabled: "text-stone-300 cursor-not-allowed",
+                      hidden: "invisible",
+                    }}
                     components={{
                       Chevron: ({ orientation, className, ...p }) =>
                       orientation === "left" ? (
@@ -232,30 +258,33 @@ export default function BookingForm() {
                       DayButton: (props) => (
                         <CalendarDayButton
                           {...props}
-                          className="w-full aspect-[4/3] absolute inset-0 m-0 flex items-center justify-center rounded-[8px] text-base font-medium
-                                    hover:bg-stone-200
-                                    data-[today=true]:ring-1 data-[today=true]:ring-[#A96046] data-[today=true]:text-[#A96046]
-                                    data-[selected-single=true]:!bg-[#A96046] data-[selected-single=true]:!text-white "
+                          /* change: fill the cell; remove aspect & absolute that stretched rows */
+                          className="rounded-[8px]
+                                      w-[40px] h-[32px]          /* mobile rectangle */
+                                      md:w-[68px] md:h-[48px]    /* desktop rectangle */
+                                      flex items-center justify-center
+                                      text-[14px] md:text-[16px] font-medium
+                                      transition-colors
+                                      hover:bg-stone-200
+                                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent)]/30 "
                         />
                       ),
                     }}
                   />
 
-                  <div className="flex justify-end gap-3">
+                  <div className="mt-6 flex justify-end gap-4">
                     <Button
                       type="button"
                       variant="outline"
+                      size="xl"
+                      className="rounded-[12px] border-[#A96046] text-[#A96046] hover:bg-[#F5EDE9]"
                       onClick={() => {
                         setOpenCalendar(false);
-                        setTempDate(selectedDate ?? undefined); // discard
+                        setTempDate(selectedDate ?? undefined); // discard changes
                       }}
-                      size="xl"
-                      className="rounded-[12px]"
                     >
                       Cancel
                     </Button>
-
-                    
                     <Button
                       type="button"
                       size="xl"
@@ -266,11 +295,11 @@ export default function BookingForm() {
                         }
                         setOpenCalendar(false);
                       }}
-                      
                     >
                       Confirm
                     </Button>
                   </div>
+
                   {openTime && (
                     <div className="fixed inset-0 z-[120] bg-black/20
                                     backdrop-brightness-150
