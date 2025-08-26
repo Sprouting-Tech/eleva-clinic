@@ -5,7 +5,6 @@ import { Autoplay, EffectFade } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-fade";
 
-
 export default function About() {
   return (
     <section className="bg-gradient-to-b from-[#FFE9E5] to-[#FFFFFF] py-16">
