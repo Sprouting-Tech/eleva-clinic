@@ -37,7 +37,7 @@ const DoctorCard: React.FC<DoctorCardProps> = ({
           }
         }
       `}</style>
-      <div className="w-full bg-[#f9f4f2] pt-12 px-6 flex flex-col gap-8">
+      <div className="w-full bg-[#f9f4f2] pt-6 px-6 flex flex-col gap-8">
         {/* Desktop Layout - Hidden on mobile and tablet */}
         <div className="hidden lg:block transition-all duration-700 ease-in-out">
           {/* Top Grid: Image + Info */}
@@ -73,35 +73,40 @@ const DoctorCard: React.FC<DoctorCardProps> = ({
                     : "slideDownFade 0.8s ease-out forwards",
               }}
             >
-              <div className="flex flex-col gap-2">
-                <div className="text-[#A86A3D] text-5xl font-bold font-sans leading-tight">
-                  {doctor.name}
-                </div>
-                {doctor.nickname && (
-                  <div className="text-[#A86A3D] text-3xl font-light font-sans">
-                    ({doctor.nickname})
+              <div className="self-stretch inline-flex flex-col justify-center items-start gap-12">
+                <div className="self-stretch flex flex-col justify-start items-start gap-4">
+                  <div className="self-stretch flex flex-col justify-start items-start gap-2">
+                    <div className="self-stretch justify-center text-[#A86A3D] text-5xl font-bold font-['DM_Sans']">
+                      {doctor.name}
+                    </div>
+                    {doctor.nickname && (
+                      <div className="self-stretch justify-center text-[#A86A3D] text-3xl font-light font-['DM_Sans']">
+                        ({doctor.nickname})
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-              {doctor.description && (
-                <div className="text-[#6B4F3A] text-xl font-normal font-sans tracking-wide mb-2">
-                  {doctor.description}
+                  {doctor.description && (
+                    <div className="self-stretch justify-center text-black text-xl font-normal font-['DM_Sans'] tracking-wide">
+                      {doctor.description}
+                    </div>
+                  )}
                 </div>
-              )}
-              <div className="flex flex-col gap-4 w-full">
-                <div className="text-[#A86A3D] text-3xl font-bold font-sans mb-2">
-                  Study
-                </div>
-                <ul className="flex flex-col gap-3">
+                <div className="self-stretch flex flex-col justify-start items-start gap-4">
+                  <div className="self-stretch justify-center text-[#A86A3D] text-3xl font-bold font-['DM_Sans']">
+                    Study
+                  </div>
                   {doctor.study?.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-3">
-                      <span className="mt-2 w-3 h-3 rounded-full bg-[#A86A3D] inline-block flex-shrink-0"></span>
-                      <span className="text-[#6B4F3A] text-xl font-medium font-sans">
+                    <div
+                      key={idx}
+                      className="self-stretch inline-flex justify-start items-start gap-2.5"
+                    >
+                      <div className="w-3.5 h-3.5 bg-[#6B4F3A] rounded-full border-[3.20px] border-[#A86A3D] flex-shrink-0 mt-1"></div>
+                      <div className="flex-1 justify-center text-black text-xl font-medium font-['DM_Sans'] tracking-wide">
                         {item}
-                      </span>
-                    </li>
+                      </div>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             </div>
           </div>
