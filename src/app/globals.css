@@ -183,6 +183,59 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+
+  .booking-calendar .rdp {
+    /* control overall day cell size */
+    --rdp-cell-size: 60px;
+  }
+
+  @media (min-width: 640px) {
+    .booking-calendar .rdp {
+      --rdp-cell-size: 64px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .booking-calendar .rdp {
+      --rdp-cell-size: 72px;
+    }
+  }
+
+  /* Remove extra padding around days */
+  .booking-calendar .rdp-day {
+    padding: 0;
+  }
+
+  /* Remove default grey bg for today */
+  .booking-calendar .rdp-day[data-today="true"] {
+    background: transparent !important;
+  }
+
+  /* Today style (when not selected) */
+  .booking-calendar .rdp-day[data-today="true"] button {
+    border: 1px solid #A96046;
+    color: #A96046;
+  }
+
+  /* Selected style */
+  .booking-calendar .rdp-day[data-selected="true"] button {
+    background-color: #A96046 !important;
+    color: white !important;
+  }
+
+  /* Make the calendar use the available width and avoid layout overflow */
+  .booking-calendar .rdp { inline-size: 100%; }
+
+  /* Eliminate extra padding/margins that push rows out of view */
+  .booking-calendar .rdp-month { margin: 0; }
+  .booking-calendar .rdp-table { width: 100%; table-layout: fixed; }
+  .booking-calendar .rdp-head_cell { padding-top: .25rem; padding-bottom: .25rem; }
+  .booking-calendar .rdp-day { padding: 0; } /* keeps cell = button size */
+
+  /* Optional: tighter caption/nav so it all fits above the grid */
+  .booking-calendar .rdp-caption { padding: 0 .5rem; }
+  .booking-calendar .rdp-nav { gap: .25rem; }
 }
+
 
 

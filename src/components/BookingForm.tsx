@@ -176,7 +176,7 @@ export default function BookingForm() {
           <Dialog open={openCalendar} onOpenChange={setOpenCalendar}>
             <DialogContent
               showCloseButton={false}
-              className="w-[calc(100vw-24px)] md:w-auto md:max-w-none max-h-[90vh] overflow-auto rounded-[24px] p-6 md:p-[38.4px] shadow-x"
+              className="w-[calc(100vw-24px)] md:w-auto md:max-w-none max-h-[90vh] overflow-auto rounded-[24px] p-4 md:p-6 shadow-x"
               
               onInteractOutside={(e) => {
                 const el = e.target as HTMLElement | null;
@@ -196,16 +196,7 @@ export default function BookingForm() {
               </DialogHeader>
 
               <div className="p-0">
-                <div className={[
-                      "cal-figma mx-auto box-border w-full max-w-[95vw] md:w-[860.8px] rounded-[24px]",
-                      // gap between days if your calendar grid respects column/row gap
-                      "h-[440px] md:h-[560px] overflow-hidden",
-                      "[--gap:10px] [--rows:6]",
-                      // MOBILE: fit 7 cols inside the available width; cap lower bound ~44px
-                      "[--cell:clamp(44px,calc((100%-(var(--gap)*6))/7),80px)]",
-                      // DESKTOP: lock to 80px (gives you 80×60 look)
-                      "md:[--cell:80px]",
-                    ].join(" ")}>
+                <div className="booking-calendar mx-auto w-[min(96vw,650px)] rounded-[24px] bg-white h-[min(500px,80vh)]">
                   <Calendar
                     mode="single"
                     selected={tempDate}
@@ -213,11 +204,13 @@ export default function BookingForm() {
                     disabled={{ before: new Date() }}
                     showOutsideDays={false}
                     locale={enUS}
-                    // Weekday labels like Figma: Sun Mon Tue ...
                     formatters={{
                       formatWeekdayName: (date) => format(date, "EEE"),
                     }}
-                    className="mx-auto w-full max-w-[720px]"
+                    className="w-full [--rdp-cell-size:46px]
+                              sm:[--rdp-cell-size:54px]
+                              md:[--rdp-cell-size:62px]
+                              [--rdp-months-gap:0.5rem]"
                     onSelect={(d) => {
                       if (!d) return;
                       setTempDate(d);
@@ -225,83 +218,59 @@ export default function BookingForm() {
                       setOpenTime(true);
                     }}
                     classNames={{
-                        // tighten vertical rhythm a bit
-                        //months: "space-y-4 md:space-y-6",
-                        caption: "flex justify-center pt-2 relative items-center",
-                        caption_label: "text-[20px] font-medium tracking-tight",
-                        day_outside: "hidden",
-                        day_today: "text-inherit ring-0",
-                      }}
+                                  table: "w-auto",  
+                                  day_today: "!bg-transparent !text-inherit",}}
                     components={{
                       Chevron: ({ orientation, className, ...p }) =>
-                        orientation === "left" ? (
-                          <svg
-                            viewBox="0 0 24 24"
-                            className={`size-7 ${className}`}
-                            {...p}
-                          >
-                            <path
-                              d="M15 18l-6-6 6-6"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              fill="none"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        ) : orientation === "right" ? (
-                          <svg
-                            viewBox="0 0 24 24"
-                            className={`size-7 ${className}`}
-                            {...p}
-                          >
-                            <path
-                              d="M9 6l6 6-6 6"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              fill="none"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        ) : (
-                          <svg
-                            viewBox="0 0 24 24"
-                            className={`size-7 ${className}`}
-                            {...p}
-                          >
-                            <path
-                              d="M6 9l6 6 6-6"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              fill="none"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        ),
-
+                      orientation === "left" ? (
+                        <ChevronLeft className={`size-7 ${className}`} {...p} />
+                      ) : orientation === "right" ? (
+                        <ChevronRight className={`size-7 ${className}`} {...p} />
+                      ) : (
+                        <ChevronDown className={`size-7 ${className}`} {...p} />
+                      ),
                       DayButton: (props) => (
                         <CalendarDayButton
                           {...props}
-                          className={[
-                                // size: 80×60 on desktop; auto-fit on mobile
-                                "w-[var(--cell)] h-[calc(var(--cell)*0.75)]",
-                                // figma radius + padding
-                                "rounded-[8px] px-4 py-3",
-                                // typography
-                                "text-base font-medium",
-                                // kill ring/outline so today/hover doesn’t “inflate”
-                                "ring-0 focus:ring-0 focus-visible:ring-0 outline-none focus-visible:outline-none",
-                                // neutral hover for normal days
-                                "hover:bg-stone-200",
-                                // selected state (filled)
-                                "data-[selected-single=true]:!bg-[#A96046] data-[selected-single=true]:!text-white data-[selected-single=true]:hover:!bg-[#A96046]",
-                              ].join(" ")}
+                          className="w-full aspect-[4/3] absolute inset-0 m-0 flex items-center justify-center rounded-[8px] text-base font-medium
+                                    hover:bg-stone-200
+                                    data-[today=true]:ring-1 data-[today=true]:ring-[#A96046] data-[today=true]:text-[#A96046]
+                                    data-[selected-single=true]:!bg-[#A96046] data-[selected-single=true]:!text-white "
                         />
                       ),
                     }}
                   />
+
+                  <div className="flex justify-end gap-3">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => {
+                        setOpenCalendar(false);
+                        setTempDate(selectedDate ?? undefined); // discard
+                      }}
+                      size="xl"
+                      className="rounded-[12px]"
+                    >
+                      Cancel
+                    </Button>
+
+                    
+                    <Button
+                      type="button"
+                      size="xl"
+                      className="rounded-[12px] bg-[#A96046] text-white hover:brightness-95"
+                      onClick={() => {
+                        if (tempDate) {
+                          onChange("date", toISODate(tempDate));
+                        }
+                        setOpenCalendar(false);
+                      }}
+                      
+                    >
+                      Confirm
+                    </Button>
+                  </div>
                   {openTime && (
                     <div className="fixed inset-0 z-[120] bg-black/20
                                     backdrop-brightness-150
@@ -310,38 +279,7 @@ export default function BookingForm() {
                   )}
                 </div>
               </div>
-
-              {/* Footer */}
-              <div className="mt-6 flex justify-end gap-3">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => {
-                    setOpenCalendar(false);
-                    setTempDate(selectedDate ?? undefined); // discard
-                  }}
-                  size="xl"
-                  className="rounded-[12px]"
-                >
-                  Cancel
-                </Button>
-
-                
-                <Button
-                  type="button"
-                  size="xl"
-                  className="rounded-[12px] bg-[#A96046] text-white hover:brightness-95"
-                  onClick={() => {
-                    if (tempDate) {
-                      onChange("date", toISODate(tempDate));
-                    }
-                    setOpenCalendar(false);
-                  }}
-                  
-                >
-                  Confirm
-                </Button>
-              </div>
+              
             </DialogContent>
           </Dialog>
 
