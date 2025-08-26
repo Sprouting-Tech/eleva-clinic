@@ -3,38 +3,41 @@ import Image from "next/image";
 
 interface VerticalSliderProps<T> {
   items: T[];
-  renderItem: (item: T) => React.ReactNode;
+  renderItem: (item: T, direction?: "up" | "down") => React.ReactNode;
   loop?: boolean;
+  onIndexChange?: (index: number) => void;
 }
 
 function VerticalSlider<T>({
   items,
   renderItem,
   loop = true,
+  onIndexChange,
 }: VerticalSliderProps<T>) {
   const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState<"up" | "down" | null>(null);
-  const [animating, setAnimating] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [direction, setDirection] = useState<"up" | "down">("down");
 
   const goTo = (idx: number, dir: "up" | "down") => {
     setDirection(dir);
-    setAnimating(true);
+    setIsTransitioning(true);
     setTimeout(() => {
       setCurrent(idx);
-      setAnimating(false);
-    }, 350); // match transition duration
+      onIndexChange?.(idx);
+      setTimeout(() => setIsTransitioning(false), 50);
+    }, 250); // Reduced from 400ms to 250ms for faster transition
   };
 
   const next = () => {
     let nextIdx = current + 1;
     if (nextIdx >= items.length) nextIdx = loop ? 0 : items.length - 1;
-    goTo(nextIdx, "down");
+    goTo(nextIdx, "up"); // Going forward = slide up
   };
 
   const prev = () => {
     let prevIdx = current - 1;
     if (prevIdx < 0) prevIdx = loop ? items.length - 1 : 0;
-    goTo(prevIdx, "up");
+    goTo(prevIdx, "down"); // Going backward = slide down
   };
 
   return (
@@ -62,19 +65,15 @@ function VerticalSlider<T>({
         style={{ position: "relative", minHeight: 400 }}
       >
         <div
-          className={`transition-transform duration-350 ease-in-out w-full h-full`}
+          className={`w-full h-full transition-opacity duration-500 ease-in-out ${
+            isTransitioning ? "opacity-0" : "opacity-100"
+          }`}
           style={{
-            transform:
-              animating && direction === "down"
-                ? "translateY(-100%)"
-                : animating && direction === "up"
-                  ? "translateY(100%)"
-                  : "translateY(0)",
             maxWidth: "1500px",
             margin: "0 auto",
           }}
         >
-          {renderItem(items[current])}
+          {renderItem(items[current], direction)}
         </div>
       </div>
       {/* Right Arrow */}
@@ -91,17 +90,7 @@ function VerticalSlider<T>({
           height={26.6}
         />
       </button>
-      {/* Dots */}
-      <div className="flex gap-2 mt-4 justify-center absolute left-1/2 -translate-x-1/2 bottom-0">
-        {items.map((_, idx) => (
-          <button
-            key={idx}
-            className={`w-2 h-2 rounded-full ${idx === current ? "bg-[#A86A3D]" : "bg-gray-300"}`}
-            onClick={() => goTo(idx, idx > current ? "down" : "up")}
-            aria-label={`Go to slide ${idx + 1}`}
-          />
-        ))}
-      </div>
+      {/* Dots removed as requested */}
     </div>
   );
 }

@@ -17,6 +17,7 @@ export type Doctor = {
   image: string;
   description?: string;
   study?: string[];
+  training?: string[];
 };
 export type Review = {
   id: string;
