@@ -1,12 +1,11 @@
 import { Service } from "@/types/content";
 
 export const services: Service[] = [
-
   {
     id: "srv-1",
     slug: "ultraformer-iii",
     name: "ULTRAFORMER III",
-    summary: "ยกกระชับใบหน้าและลำคอ",
+    summary: "Lift and tighten skin on the face and neck for a firmer, youthful look.",
     image: "/images/Service1.png",
     featured: true,
   },
@@ -14,7 +13,7 @@ export const services: Service[] = [
     id: "srv-2",
     slug: "Surgery",
     name: "Surgery",
-    summary: "รอยสิว/จุดด่างดำ",
+    summary: "Safe cosmetic procedures designed to enhance your natural beauty.",
     image: "/images/Service2.png",
     featured: true,
   },
@@ -22,7 +21,7 @@ export const services: Service[] = [
     id: "srv-3",
     slug: "Ultraformer",
     name: "Ultraformer",
-    summary: "ยกกระชับ ปรับรูปหน้า",
+    summary: "Non-surgical treatment to contour the face,\nand improve appearance.",
     image: "/images/Service3.png",
     featured: true,
   },
@@ -30,7 +29,7 @@ export const services: Service[] = [
     id: "srv-4",
     slug: "Pico",
     name: "Pico",
-    summary: "ลดริ้วรอย/กราม",
+    summary: "Advanced laser solution for dark spots,\nacne scars, and smoother skin.",
     image: "/images/Service4.png",
     featured: true,
   },
@@ -38,7 +37,7 @@ export const services: Service[] = [
     id: "srv-5",
     slug: "MotuxAXLaser",
     name: "Motux AX Laser",
-    summary: "เติมเต็มใบหน้าอย่างเป็นธรรมชาติ",
+    summary: "Precise treatment to refine skin texture\nand restore natural radiance.",
     image: "/images/Service5.png",
     featured: true,
   },
@@ -46,10 +45,8 @@ export const services: Service[] = [
     id: "srv-6",
     slug: "LaserSkinTreatment",
     name: "Laser Skin Treatment",
-    summary: "ผิวกระจ่างใส สุขภาพดี",
+    summary: "Brighten dull skin, reduce blemishes,\nand reveal a healthy glow.",
     image: "/images/Service6.png",
     featured: true,
   },
-
-
 ];

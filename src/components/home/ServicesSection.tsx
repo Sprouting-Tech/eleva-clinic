@@ -17,7 +17,7 @@ export default function ServicesSection() {
         <Slider
           items={featured}
           perView="auto"                       // ⬅️ let the slide width be content-based
-          space={-1}                           // ⬅️ tighter gap between slides
+          space={-50}                           // ⬅️ tighter gap between slides
           centered={false}                     // ⬅️ pack from the left, no centering
           loop
           controls={false}                     // swipe-only, no arrows/dots
