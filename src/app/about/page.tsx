@@ -15,7 +15,7 @@ export default function About() {
   return (
     <div className="w-full max-w-[1600px] mx-auto px-4 md:px-[48px] space-y-10">
       <section>
-        <div className="self-stretch text-center justify-start text-token-color-main-button-color text-2xl md:text-4xl font-normal font-['Montserrat'] text-[#AF674F] mb-6">
+        <div className="self-stretch text-center justify-start text-token-color-main-button-color text-2xl md:text-4xl font-normal font-['Montserrat'] text-[#AF674F] mb-12">
           Meet Our Doctors
         </div>
         {/* Desktop: Slider */}
