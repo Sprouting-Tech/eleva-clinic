@@ -76,4 +76,12 @@ export const doctors: Doctor[] = [
       "Certificate in the 5th Annual Conference of the PAN Asia Academy of FPRS, Bangkok, Thailand, 2015",
     ],
   },
+  {
+    id: "dr-chaiyakorn",
+    slug: "dr-chaiyakorn",
+    name: "Dr. Chaiyakorn",
+    nickname: "Dr. Chaiyakorn",
+    title: "Plastic Surgeon",
+    image: "/images/placeholder.jpg",
+  },
 ];

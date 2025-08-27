@@ -15,17 +15,21 @@ function VerticalSlider<T>({
   onIndexChange,
 }: VerticalSliderProps<T>) {
   const [current, setCurrent] = useState(0);
+  const [nextIndex, setNextIndex] = useState<number | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [direction, setDirection] = useState<"up" | "down">("down");
 
   const goTo = (idx: number, dir: "up" | "down") => {
     setDirection(dir);
     setIsTransitioning(true);
+    setNextIndex(idx);
+    // Wait for fade-out, then switch doctor
     setTimeout(() => {
       setCurrent(idx);
+      setNextIndex(null);
       onIndexChange?.(idx);
       setTimeout(() => setIsTransitioning(false), 50);
-    }, 250); // Reduced from 400ms to 250ms for faster transition
+    }, 250); // 250ms matches transition duration
   };
 
   const next = () => {
@@ -64,17 +68,40 @@ function VerticalSlider<T>({
         className="w-full flex items-center justify-center overflow-hidden"
         style={{ position: "relative", minHeight: 400 }}
       >
-        <div
-          className={`w-full h-full transition-opacity duration-500 ease-in-out ${
-            isTransitioning ? "opacity-0" : "opacity-100"
-          }`}
-          style={{
-            maxWidth: "1500px",
-            margin: "0 auto",
-          }}
-        >
-          {renderItem(items[current], direction)}
-        </div>
+        {/* Only show one doctor at a time: fade out current, then show next */}
+        {nextIndex === null ? (
+          <div
+            className={`w-full h-full transition-opacity duration-500 ease-in-out ${
+              isTransitioning ? "opacity-0" : "opacity-100"
+            }`}
+            style={{
+              maxWidth: "1500px",
+              margin: "0 auto",
+              position: "relative",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            {renderItem(items[current], direction)}
+          </div>
+        ) : (
+          <div
+            className="w-full h-full transition-opacity duration-500 ease-in-out opacity-100"
+            style={{
+              maxWidth: "1500px",
+              margin: "0 auto",
+              position: "relative",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            {renderItem(items[nextIndex], direction)}
+          </div>
+        )}
       </div>
       {/* Right Arrow */}
       <button

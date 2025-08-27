@@ -36,6 +36,16 @@ const DoctorCard: React.FC<DoctorCardProps> = ({
             opacity: 1;
           }
         }
+        @keyframes imageFadeScale {
+          from {
+            opacity: 0.6;
+            transform: scale(0.96);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
       `}</style>
       <div className="w-full bg-[#f9f4f2] pt-6 px-6 flex flex-col gap-8">
         {/* Desktop Layout - Hidden on mobile and tablet */}
@@ -59,6 +69,10 @@ const DoctorCard: React.FC<DoctorCardProps> = ({
                 width={420}
                 height={520}
                 className="relative z-10 w-[420px] h-[520px] object-cover rounded-2xl"
+                style={{
+                  animation:
+                    "imageFadeScale 1s cubic-bezier(0.22, 1, 0.36, 1) forwards",
+                }}
               />
             </div>
 
@@ -134,7 +148,11 @@ const DoctorCard: React.FC<DoctorCardProps> = ({
                 alt={doctor.name}
                 fill
                 className="object-cover rounded-2xl"
-                style={{ objectPosition: "center 30%" }}
+                style={{
+                  objectPosition: "center 30%",
+                  animation:
+                    "imageFadeScale 1s cubic-bezier(0.22, 1, 0.36, 1) forwards",
+                }}
               />
             </div>
           </div>
