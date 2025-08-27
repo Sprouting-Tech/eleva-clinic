@@ -156,29 +156,33 @@ export default function BookingForm() {
             <label className="text-sm text-black">Select Date and Time</label>
 
             {/* Trigger: open calendar modal */}
-            <button
+            <Button
               type="button"
               aria-label="Select date and time"
               onClick={() => setOpenCalendar(true)}
-              className="w-full md:w-[341px] h-12 md:h-[73px] rounded-[14px] md:rounded-[20px] border-2 border-stone-400/90 px-4 py-3 md:px-[20px] md:py-[15px]
-                         text-base md:text-[20px] outline-none focus:border-stone-500 focus:ring-0
-                         placeholder:font-light placeholder:text-base md:placeholder:text-[20px] placeholder:leading-[20px] placeholder:text-black/60"
+              variant="ghost"
+              className="w-full md:w-[341px] h-12 md:h-[73px] rounded-[14px] md:rounded-[20px] 
+                        border-2 border-stone-400/90 px-4 md:px-[20px]
+                        text-left text-base md:text-[20px] outline-none focus:border-stone-500 focus:ring-0
+                        placeholder:font-light placeholder:text-base md:placeholder:text-[20px] 
+                        placeholder:leading-[20px] placeholder:text-black/60"
             >
-              <div className="flex items-center justify-between">
-                <span
-                  className={
-                    form.date || form.time
-                      ? "text-stone-900 text-[20px] leading-[20px] font-normal"
-                      : "text-black/60 text-[20px] leading-[20px]"
-                  }
-                >
-                  {form.date && selectedDate
-                    ? `${format(selectedDate, "dd/MM")} , ${form.time || "Time"}`
-                    : "DD/MM , Time"}
-                </span>
-                <ChevronDown className="h-4 w-4 text-black/50" />
-              </div>
-            </button>
+              <span
+                className={
+                  form.date || form.time
+                    ? "text-stone-900 text-[20px] leading-[20px] font-normal"
+                    : "text-black/60 text-[20px] leading-[20px]"
+                }
+              >
+                {form.date && selectedDate
+                  ? `${format(selectedDate, "dd/MM")} , ${form.time || "Time"}`
+                  : "DD/MM , Time"}
+              </span>
+
+              {/* Chevron floats right automatically due to ml-auto */}
+              <ChevronDown className="ml-auto h-4 w-4 text-black/50" />
+            </Button>
+
           </div>
         </div>
         <div className="relative">
@@ -283,10 +287,10 @@ export default function BookingForm() {
                       type="button"
                       variant="outline"
                       size="xl"
-                      className="rounded-[12px] border-[#A96046] text-[#A96046] hover:bg-[#F5EDE9]"
+                      className="rounded-[12px] border-[#AF674F] text-stone-500 hover:bg-[#AF674F] active:bg-[#7F3F29]"
                       onClick={() => {
                         setOpenCalendar(false);
-                        setTempDate(selectedDate ?? undefined); // discard changes
+                        setTempDate(selectedDate ?? undefined);
                       }}
                     >
                       Cancel
