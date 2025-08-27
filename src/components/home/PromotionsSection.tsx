@@ -13,21 +13,25 @@ export default function PromotionsSection() {
       </h2>
       <Slider
         items={promotions}
-        inlineControls
+        inlineControls        // show custom row with arrows + dots
+        controls              // enable controls
+        pagination            // activate dots
+        controlsId="promotions"  // unique id for dots container
         renderItem={(p) => (
-          <Link href={p.href} className="block">
+            <Link href={p.href} className="block">
             <div className="rounded-2xl bg-white shadow-[0_8px_30px_rgba(0,0,0,.08)] overflow-hidden">
-              <Image
+                <Image
                 src={p.image}
                 alt={p.alt ?? "Promotion"}
                 width={800}
                 height={800}
                 className="w-full aspect-square object-cover"
-              />
+                />
             </div>
-          </Link>
+            </Link>
         )}
-      />
+        />
+
     </section>
   );
 }

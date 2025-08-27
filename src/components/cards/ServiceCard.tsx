@@ -6,22 +6,26 @@ import { Service } from "@/types/content";
 
 export default function ServiceCard({ item }: { item: Service }) {
   return (
-    <article className="rounded-2xl bg-white shadow-[0_8px_30px_rgba(0,0,0,.08)] overflow-hidden flex flex-col">
-      {/* Image on top */}
+    <article className="max-w-xs mx-auto rounded-2xl bg-white shadow-[0_8px_30px_rgba(0,0,0,.08)] overflow-hidden flex flex-col">
+      {/* Image on top, smaller fixed height */}
       <Image
         src={item.image}
         alt={item.name}
-        width={640}
-        height={480}
-        className="w-full aspect-[4/3] object-cover"
+        width={320}
+        height={240}
+        className="w-full h-36 sm:h-40 lg:h-44 object-cover"
       />
 
       {/* Content below image */}
       <div className="p-4 flex flex-col flex-1">
-        <h3 className="font-semibold text-neutral-900">{item.name}</h3>
+        <h3 className="font-semibold text-neutral-900 text-sm sm:text-base">
+          {item.name}
+        </h3>
 
         {item.summary && (
-          <p className="mt-1 text-sm text-neutral-600">{item.summary}</p>
+          <p className="mt-1 text-xs sm:text-sm text-neutral-600">
+            {item.summary}
+          </p>
         )}
 
         {item.price && (
@@ -35,7 +39,7 @@ export default function ServiceCard({ item }: { item: Service }) {
 
         <Link
           href={`/services/${item.slug}`}
-          className="mt-4 inline-block px-4 py-2 rounded-full text-sm bg-[#b87a63] text-white hover:opacity-90 transition"
+          className="mt-3 inline-block px-3 py-1.5 rounded-full text-xs sm:text-sm bg-[#b87a63] text-white hover:opacity-90 transition"
         >
           View Detail
         </Link>

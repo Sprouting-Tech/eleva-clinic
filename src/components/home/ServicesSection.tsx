@@ -3,7 +3,6 @@
 import Slider from "@/components/slider/Slider";
 import ServiceCard from "@/components/cards/ServiceCard";
 import { services } from "@/data/services";
-import Link from "next/link";
 
 export default function ServicesSection() {
   const featured = services.filter((s) => s.featured);
@@ -17,22 +16,22 @@ export default function ServicesSection() {
       {featured.length >= 3 ? (
         <Slider
           items={featured}
-          inlineControls
-          perView={1}
-          breakpoints={{ 768: { slidesPerView: 2 } }}
+          perView="auto"                       // ⬅️ let the slide width be content-based
+          space={-1}                           // ⬅️ tighter gap between slides
+          centered={false}                     // ⬅️ pack from the left, no centering
           loop
+          controls={false}                     // swipe-only, no arrows/dots
           renderItem={(s) => (
-            <Link href="/services" className="block">
+            // ⬅️ Fixed slide widths so cards are compact
+            <div className="w-[260px] sm:w-[280px] md:w-[300px]">
               <ServiceCard item={s} />
-            </Link>
+            </div>
           )}
         />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {featured.map((s) => (
-            <Link key={s.id} href="/services" className="block">
-              <ServiceCard item={s} />
-            </Link>
+            <ServiceCard key={s.id} item={s} />
           ))}
         </div>
       )}
