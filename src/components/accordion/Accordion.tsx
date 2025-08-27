@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
+
 type Item = { q: string; a: string };
+
 export default function Accordion({
   items,
   singleOpen = true,
@@ -9,6 +11,7 @@ export default function Accordion({
   singleOpen?: boolean;
 }) {
   const [open, setOpen] = useState<number | null>(null);
+  
   return (
     <div className="space-y-2">
       {items.map((it, i) => {
@@ -21,7 +24,7 @@ export default function Accordion({
             >
               {it.q}
             </button>
-            {(!singleOpen || isOpen) && isOpen && (
+            {isOpen && (
               <p className="mt-2 text-sm text-neutral-700">{it.a}</p>
             )}
           </div>

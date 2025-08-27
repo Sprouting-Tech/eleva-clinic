@@ -62,7 +62,7 @@ export default function Navbar() {
   // Mobile Menu Component
   const MobileMenu = () => (
     <div 
-      className="fixed inset-0 z-[99999] animate-in slide-in-from-top duration-300"
+      className="fixed inset-0 z-[999] animate-in slide-in-from-top duration-300"
       style={{ backgroundColor: "#FFEBE7" }}
     >
       {/* Header */}
