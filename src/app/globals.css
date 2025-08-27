@@ -45,3 +45,8 @@ body {
   background: var(--color-brand-500);
   color: #fff;
 }
+
+.mask-fade{
+  -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+}
