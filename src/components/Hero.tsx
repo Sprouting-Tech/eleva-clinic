@@ -1,19 +1,24 @@
 import Image from "next/image";
 import Link from "next/link";
 import { DM_Sans, Montserrat } from "next/font/google";
+import {motion} from 'framer-motion';
 
 const dmSans = DM_Sans({ subsets: ["latin"], weight: ["300","400","500","700"] });
 const montserrat = Montserrat({ subsets: ["latin"], weight: ["400","700"] });
 
 export default function Hero() {
   return (
-    <section
-      className={`${dmSans.className} relative isolate w-full overflow-hidden min-h-[100svh] bg-[radial-gradient(circle_at_50%_45%,#FFFFFF_0%,#FFFFFF_38%,#FFE9E5_100%)]`}
+    <motion.section
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: "easeOut", delay: 0.12 }}
+      className={`${dmSans.className} relative isolate w-full overflow-hidden min-h-[100svh]
+                  bg-[radial-gradient(circle_at_50%_45%,#FFFFFF_0%,#FFFFFF_38%,#FFE9E5_100%)]`}
     >
       {/* Mobile: grid (stack)  •  Desktop: flex (side-by-side + vertically centered) */}
-      <div className="mx-auto grid max-w-6xl gap-8 px-5 py-6 md:flex md:items-center md:gap-14 md:px-10">
+      <div className="mx-auto grid max-w-6xl px-5 py-6 md:flex md:items-center md:gap-14 md:px-10">
         {/* IMAGE — mobile first; desktop move to the right */}
-        <div className="relative order-1 mx-auto aspect-[4/5] w-full max-w-[420px] md:order-2 md:h-[500px]">
+        <div className="relative order-1 mx-auto aspect-[4/5] w-full max-w-[420px] md:order-2 md:h-[640px] md:w-[56vw] md:max-w-none md:mr-[-8vw]">
           <Image
             src="/images/hero.png"
             alt="Two women with healthy skin representing Eleva Clinic’s gentle care"
@@ -29,7 +34,7 @@ export default function Hero() {
             Eleva Clinic
           </h1>
 
-          <p className="mt-4 text-base text-stone-700 md:mt-6 md:text-lg max-w-[32ch]">
+          <p className="mt-4 tracking-wider text-base text-stone-700 md:mt-6 md:text-lg max-w-[32ch]">
             We provide personalized skin and beauty treatments that bring out your natural
             radiance, combining expert care with a gentle touch.
           </p>
@@ -58,6 +63,6 @@ export default function Hero() {
 
 
       <div className="pointer-events-none absolute inset-0 -z-10 opacity-70 [background:radial-gradient(900px_500px_at_50%_0%,rgba(255,186,166,0.22),transparent)]" />
-    </section>
+    </motion.section>
   );
 }
