@@ -15,36 +15,30 @@ export default function Home() {
           Promotions
         </h2>
 
-        <Slider
-          items={promotions}
-          inlineControls   // 👈 gives you:  ←  ● ● ●  →
-          loop
-          renderItem={(p) => (
-            <Link href={p.href} className="block">
-              <div className="rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,.08)] overflow-hidden bg-white">
-                <Image
-                  src={p.image}
-                  alt={p.alt ?? "Promotion"}
-                  width={800}
-                  height={800}
-                  className="w-full aspect-square object-cover"
-                />
-              </div>
-            </Link>
-          )}
-        />
-
-
-
-
-
+     <Slider
+        items={promotions}
+        inlineControls           // ← ● ● ● →
+        renderItem={(p) => (
+          <Link href={p.href} className="block">
+            <div className="rounded-2xl bg-white shadow-[0_8px_30px_rgba(0,0,0,.08)] overflow-hidden">
+              <Image
+                src={p.image}
+                alt={p.alt ?? "Promotion"}
+                width={800}
+                height={800}
+                className="w-full aspect-square object-cover"
+              />
+            </div>
+          </Link>
+        )}
+      />
 
       </section>
 
       {/* Services second */}
       <section>
         <h2 className="mb-3 text-lg font-semibold">Our Services</h2>
-        <Slider items={services} renderItem={(s) => <ServiceCard item={s} />} />
+        <Slider items={services} renderItem={(s, i) => <ServiceCard item={s} />} />
       </section>
     </div>
   );

@@ -27,11 +27,13 @@ body {
   margin-inline: auto;
   padding-inline: 1rem;
 }
+
 .card {
   border-radius: var(--radius-2xl);
   background: #fff;
   box-shadow: var(--shadow-soft);
 }
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -40,12 +42,15 @@ body {
   padding: 0.5rem 1rem;
   font-weight: 500;
 }
+
 .btn-primary {
   background: var(--color-brand-500);
   color: #fff;
 }
 
-/* center pop + fade for neighbors */
+/* --- Promotions slider look --- */
+
+/* Center “pop”, faded neighbors */
 .promo-inline .swiper-slide {
   transform: scale(.9);
   opacity: .5;
@@ -56,43 +61,94 @@ body {
   opacity: 1;
 }
 
-/* controls row under the image */
-.promo-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
-  margin-top: 12px;
+/* Let scaled slides peek outside the container */
+.promo-inline .swiper { overflow: visible; }
+
+/* Hide Swiper’s built-in UI inside the swiper only */
+.promo-inline .swiper [class*="swiper-button-"] {
+  display: none !important;
+  pointer-events: none !important;
+}
+.promo-inline .swiper .swiper-pagination {
+  display: none !important;
 }
 
-/* arrows */
+/* Controls row centered under the slider */
+.promo-controls {
+  position: relative;
+  z-index: 2;                 /* ensure clicks aren’t blocked by slides */
+  display: inline-flex;       /* shrink-wrap to arrows + dots */
+  align-items: center;
+  justify-content: center;
+  gap: 6px;                   /* arrows hug the dots */
+  margin: 12px auto 0;        /* center the whole row */
+  width: max-content;
+}
+
+/* Arrows: narrower (oval), not smaller */
 .promo-arrow {
-  width: 34px;
-  height: 34px;
+  flex: none;
+  width: 24px;                /* narrower horizontally */
+  height: 34px;               /* same vertical height */
   border-radius: 9999px;
   background: rgba(184,122,99,.12);
   position: relative;
+  cursor: pointer;
 }
+
+/* pseudo-element base (no icon yet) */
 .promo-arrow::after {
   content: "";
   position: absolute;
   inset: 0;
   margin: auto;
-  width: 16px;
-  height: 16px;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' stroke='%23b87a63' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M15 6l-6 6 6 6' stroke='%23b87a63' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  width: 12px;
+  height: 12px;
   background: #b87a63;
 }
-.promo-controls .promo-arrow:last-child::after {
-  transform: scaleX(-1); /* right arrow */
+
+/* Left / Right chevrons */
+.promo-arrow--prev::after {
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M15 6l-6 6 6 6' stroke='%23b87a63' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.promo-arrow--next::after {
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M9 6l6 6-6 6' stroke='%23b87a63' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
 }
 
-/* dots (Swiper will populate .promo-dots) */
+/* Dots (Swiper injects bullets here) */
+.promo-dots {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;                 /* don’t stretch */
+  width: auto;
+}
 .promo-dots .swiper-pagination-bullet {
-  width: 8px; height: 8px; border-radius: 9999px;
-  background: #d9c7be; opacity: .6; margin: 0 6px;
-  transition: opacity .2s;
+  width: 8px; height: 8px;
+  border-radius: 9999px;
+  background: #d9c7be;
+  opacity: .6;
+  margin: 0 4px;
+  transition: opacity .2s, transform .2s;
 }
 .promo-dots .swiper-pagination-bullet-active {
-  background: #b87a63; opacity: 1;
+  background: #b87a63;
+  opacity: 1;
+  transform: scale(1.1);
 }
+/* full-width bar centers the controls relative to the section */
+.promo-controls-outer{
+  width:100%;
+  display:flex;
+  justify-content:center;   /* center horizontally */
+  margin-top:12px;
+}
+
+/* the inner row shrink-wraps arrows + dots */
+.promo-controls{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  width:max-content;
+}
+
