@@ -2,6 +2,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { DM_Sans } from "next/font/google";
+import { Toaster } from "sonner";
+
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -21,6 +23,7 @@ export default function RootLayout({
         <Navbar />
         <main className="min-h-dvh">{children}</main>
         <Footer />
+        <Toaster position="top-center" richColors />
       </body>
     </html>
   );

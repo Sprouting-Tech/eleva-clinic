@@ -4,6 +4,7 @@ import { useMemo, useState, useEffect } from "react";
 import { format } from "date-fns";
 import { enUS } from "date-fns/locale";
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import {toast} from "sonner";
 
 // shadcn/ui
 import { Calendar,  CalendarDayButton } from "@/components/ui/calendar";
@@ -86,8 +87,17 @@ export default function BookingForm() {
   function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!isValid) return;
-    // post to backend here in real app
+
     setSubmitted(true);
+
+    const prettyDate = selectedDate
+      ? format(selectedDate, "dd/MM/yyyy")
+      : "—";
+
+    toast.success("Booking submitted", {
+      description: `${prettyDate} at ${form.time} • ${form.phone}`,
+      duration: 4000,
+    });
   }
 
   /* UI */
@@ -95,12 +105,12 @@ export default function BookingForm() {
     <div className="mx-auto max-w-4xl rounded-[28px] bg-stone-100 p-6 md:p-8">
       <form
         onSubmit={submit}
-        className="rounded-[28px] bg-white p-8 shadow-sm ring-1 ring-stone-200"
+        className="rounded-[28px] bg-white p-6 md:p-8 shadow-sm ring-1 ring-stone-200 mx-auto max-w-[380px] md:max-w-none"
       >
         {/* Row: Name + Phone */}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
           {/* Name */}
-          <div className="flex flex-col space-y-7">
+          <div className="flex flex-col space-y-3 md:space-y-7 order-2 md:order-1">
             <label htmlFor="name" className="text-sm text-black">
               Your Name
             </label>
@@ -110,14 +120,14 @@ export default function BookingForm() {
               value={form.name}
               onChange={(e) => onChange("name", e.target.value)}
               required
-              className="w-full md:w-[341px] h-[73px] rounded-[20px] border-2 border-stone-400/90 px-[20px] py-[15px]
-                         text-base outline-none focus:border-stone-500 focus:ring-0
-                         placeholder:font-light placeholder:text-[20px] placeholder:leading-[20px] placeholder:text-black/60"
+              className="w-full md:w-[341px] h-12 md:h-[73px] rounded-[14px] md:rounded-[20px] border-2 border-stone-400/90 px-4 py-3 md:px-[20px] md:py-[15px]
+                         text-base md:text-[20px] outline-none focus:border-stone-500 focus:ring-0
+                         placeholder:font-light placeholder:text-base md:placeholder:text-[20px] placeholder:leading-[20px] placeholder:text-black/60"
             />
           </div>
 
           {/* Phone */}
-          <div className="flex flex-col space-y-7">
+          <div className="flex flex-col space-y-3 md:space-y-7 order-1 md:order-2">
             <label htmlFor="phone" className="text-sm text-black">
               Phone Number
             </label>
@@ -128,9 +138,9 @@ export default function BookingForm() {
               value={form.phone}
               onChange={(e) => onChange("phone", e.target.value)}
               required
-              className="w-full md:w-[341px] h-[73px] rounded-[20px] border-2 border-stone-400/90 px-[20px] py-[15px]
-                         text-base outline-none focus:border-stone-500 focus:ring-0
-                         placeholder:font-light placeholder:text-[20px] placeholder:leading-[20px] placeholder:text-black/60"
+              className="w-full md:w-[341px] h-12 md:h-[73px] rounded-[14px] md:rounded-[20px] border-2 border-stone-400/90 px-4 py-3 md:px-[20px] md:py-[15px]
+                         text-base md:text-[20px] outline-none focus:border-stone-500 focus:ring-0
+                         placeholder:font-light placeholder:text-base md:placeholder:text-[20px] placeholder:leading-[20px] placeholder:text-black/60"
             />
             {!isPhoneValid && form.phone !== "" && (
               <p className="pt-1 text-xs text-rose-600">
@@ -141,8 +151,8 @@ export default function BookingForm() {
         </div>
 
         {/* Date/Time field */}
-        <div className="mt-7 grid grid-cols-1 gap-8 md:grid-cols-2">
-          <div className="flex flex-col space-y-7">
+        <div className="mt-6 md:mt-7 grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-2">
+          <div className="flex flex-col space-y-3 md:space-y-7">
             <label className="text-sm text-black">Select Date and Time</label>
 
             {/* Trigger: open calendar modal */}
@@ -150,9 +160,9 @@ export default function BookingForm() {
               type="button"
               aria-label="Select date and time"
               onClick={() => setOpenCalendar(true)}
-              className="w-full md:w-[341px] h-[73px] rounded-[20px] border-2 border-stone-400/90 px-[20px] py-[15px]
-                         text-base outline-none focus:border-stone-500 focus:ring-0
-                         placeholder:font-light placeholder:text-[20px] placeholder:leading-[20px] placeholder:text-black/60"
+              className="w-full md:w-[341px] h-12 md:h-[73px] rounded-[14px] md:rounded-[20px] border-2 border-stone-400/90 px-4 py-3 md:px-[20px] md:py-[15px]
+                         text-base md:text-[20px] outline-none focus:border-stone-500 focus:ring-0
+                         placeholder:font-light placeholder:text-base md:placeholder:text-[20px] placeholder:leading-[20px] placeholder:text-black/60"
             >
               <div className="flex items-center justify-between">
                 <span
@@ -201,7 +211,7 @@ export default function BookingForm() {
                 <DialogTitle>Select a date</DialogTitle>
               </DialogHeader>
 
-              <div className="max-h-[80vh] overflow-auto px-6 py-6">
+              <div className="max-h-[80vh] overflow-auto py-6">
                 {/* Accent color */}
                 <style>{`:root { --accent:#B76851; --cell-size:44px } @media (min-width:768px){ :root{ --cell-size:56px } }`}</style>
                 {/* change: removed fixed h-[] so the calendar can breathe inside the dialog */}
@@ -216,8 +226,8 @@ export default function BookingForm() {
                     formatters={{
                       formatWeekdayName: (date) => format(date, "EEE"),
                     }}
-                    /* keep your sizes; overflow is handled by proper table/grid below */
-                    className="w-full bg-transparent p-0"
+
+                    className="w-full relative bg-transparent p-0"
                     onSelect={(d) => {
                       if (!d) return;
                       setTempDate(d);
@@ -225,7 +235,7 @@ export default function BookingForm() {
                       setOpenTime(true);
                     }}
                     classNames={{
-                      root:"w-full",
+                      root:"w-full bg-transparent p-0",
                       table: "w-full table-fixed border-collapse",
                       weekdays: "space-y-5",
                       week: "",
@@ -238,7 +248,6 @@ export default function BookingForm() {
                       button_next: "rounded-md p-2 hover:bg-stone-200",
                       button_previous: "rounded-md p-2 hover:bg-stone-200",
 
-                      /* day button (fills the cell; rounded pill; subtle hover) */
                       day_button: "mx-auto m-[5px] grid place-items-center rounded-[8px] w-[56px] h-[34px] sm:w-[68px] sm:h-[52px] md:w-[80px] md:h-[60px] px-3 py-2 md:px-6 md:py-3 text-base font-medium leading-none select-none transition-colors hover:bg-stone-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B76851]/30",
 
                       today: "!bg-transparent !text-inherit",       // no grey bg for today
@@ -258,15 +267,12 @@ export default function BookingForm() {
                       DayButton: (props) => (
                         <CalendarDayButton
                           {...props}
-                          /* change: fill the cell; remove aspect & absolute that stretched rows */
-                          className="rounded-[8px]
-                                      w-[40px] h-[32px]          /* mobile rectangle */
-                                      md:w-[68px] md:h-[48px]    /* desktop rectangle */
-                                      flex items-center justify-center
-                                      text-[14px] md:text-[16px] font-medium
-                                      transition-colors
-                                      hover:bg-stone-200
-                                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent)]/30 "
+                          className="rounded-[8px] w-[40px] h-[40px] md:w-[68px] md:h-[48px] flex items-center justify-center 
+                                      text-[14px] md:text-[16px] font-medium transition-colors text-stone-900 hover:bg-[#F5EDE9] hover:text-[#A96046]
+                                      data-[today=true]:ring-1 data-[today=true]:ring-[#A96046]
+                                      data-[selected-single=true]:!bg-[#A96046] 
+                                      data-[selected-single=true]:!text-white 
+                                      data-[selected-single=true]:hover:!bg-[#8C4E3B]  /* darker on hover */"
                         />
                       ),
                     }}
@@ -301,10 +307,11 @@ export default function BookingForm() {
                   </div>
 
                   {openTime && (
-                    <div className="fixed inset-0 z-[120] bg-black/20
-                                    backdrop-brightness-150
-                                    md:absolute md:inset-0 md:z-10 md:rounded-[24px]
-                                    pointer-events-none" />
+                    <div className="absolute inset-0 md:rounded-[24px]
+                                    z-[40]                     
+                                    bg-black/20         
+                                    pointer-events-none
+                                    md:block" />
                   )}
                 </div>
               </div>
@@ -325,16 +332,16 @@ export default function BookingForm() {
             <PopoverContent
               data-time-popover="true"
               align="center"
-              side="top"
-              sideOffset={5}
               className={[
-                  // MOBILE: centered sheet
-                  "w-[calc(100vw-24px)] max-w-[520px]",
-                  "max-h-[min(70vh,520px)] overflow-auto",
-                  "rounded-[20px] border-0 bg-white shadow-xl",
-                  // DESKTOP: centered over calendar
+                  // Center on MOBILE (viewport)
+                  "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
+                  // Size
+                  "w-[calc(100vw-24px)] max-w-[520px] max-h-[min(70vh,520px)] overflow-auto",
+                  "rounded-[20px] border-0 bg-white shadow-2xl",
+                  "z-[50]", 
+                  // Center on DESKTOP
                   "md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2",
-                  "md:w-[487px] md:max-h-none md:rounded-[20px] md:px-6 md:pt-6 md:pb-6",
+                  "md:w-[487px] md:max-h-none md:px-6 md:pt-6 md:pb-6",
                 ].join(" ")}
             >
               {/* Accent color from the mock */}
@@ -444,13 +451,6 @@ export default function BookingForm() {
             Confirm
           </Button>
         </div>
-
-        {/* Demo success */}
-        {submitted && (
-          <p className="mt-6 rounded-xl bg-green-50 p-3 text-sm text-green-700">
-            Success — booking saved locally (demo). ✅
-          </p>
-        )}
       </form>
     </div>
   );
