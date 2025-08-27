@@ -16,7 +16,6 @@ export default function FAQAccordion({ items }: { items: Item[] }) {
     <div className="flex flex-col items-start gap-4 w-full">
       {items.map((item, index) => {
         const isOpen = !!openMap[index];
-        const gradientEnd = isOpen ? "to-rose-100/90" : "to-rose-100/90";
         return (
           <div
             key={index}
