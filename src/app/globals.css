@@ -70,26 +70,7 @@ body {
 }
 
 
-.cal-figma { --cal-gap: 16px; }                /* Figma gap */
 
-.cal-figma :where(.rdp),
-.cal-figma :where(.rdp-month),
-.cal-figma :where(.rdp-table) { width: 100%; }
-
-.cal-figma :where(.rdp-month) {
-  display: flex; flex-direction: column; gap: var(--cal-gap);
-}
-
-.cal-figma :where(.rdp-weekdays) {
-  display: flex; gap: var(--cal-gap); padding-inline: 2px;
-}
-
-.cal-figma :where(.rdp-weekday) {
-  flex: 1 1 0%; text-align: center; font-weight: 500; font-size: .9rem;
-}
-
-/* Optional: a little vertical space between weeks */
-.cal-figma :where(.rdp-week) { margin-top: .25rem; }
 
 .btn {
   display: inline-flex;

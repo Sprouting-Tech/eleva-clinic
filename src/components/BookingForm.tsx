@@ -89,7 +89,7 @@ export default function BookingForm() {
     const prettyDate = selectedDate ? format(selectedDate, "dd/MM/yyyy") : "—";
 
     toast.success("Booking submitted", {
-      description: `${prettyDate} at ${form.time} • ${form.phone}`,
+      description: `${form.name} • ${prettyDate} at ${form.time}`,
       duration: 4000,
     });
   }
@@ -183,14 +183,14 @@ export default function BookingForm() {
               showCloseButton={false}
               className="overflow-hidden p-0 w-[calc(100vw-24px)] max-w-[720px] md:max-w-[760px] rounded-[24px] shadow-xl"
               onInteractOutside={(e) => {
-                const el = e.target as HTMLElement | null;
-                if (el && el.closest('[data-time-popover="true"]')) {
+                const element = e.target as HTMLElement | null;
+                if (element && element.closest('[data-time-popover="true"]')) {
                   e.preventDefault(); // to allow popover interaction without closing dialog
                 }
               }}
               onPointerDownOutside={(e) => {
-                const el = e.target as HTMLElement | null;
-                if (el && el.closest('[data-time-popover="true"]')) {
+                const element = e.target as HTMLElement | null;
+                if (element && element.closest('[data-time-popover="true"]')) {
                   e.preventDefault();
                 }
               }}
@@ -200,8 +200,6 @@ export default function BookingForm() {
               </DialogHeader>
 
               <div className="max-h-[80vh] overflow-auto py-6">
-                {/* Accent color */}
-                <style>{`:root { --accent:#B76851; --cell-size:44px } @media (min-width:768px){ :root{ --cell-size:56px } }`}</style>
                 <div className="mx-auto w-full max-w-[650px] rounded-[24px] bg-transparent">
                   <Calendar
                     mode="single"
@@ -224,20 +222,21 @@ export default function BookingForm() {
                       root: "w-full bg-transparent p-0",
                       table: "w-full table-fixed border-collapse",
                       weekdays: "space-y-5",
-                      week: "",
+                      week: "mt-1",
                       day: "p-[5px] text-center align-middle",
-                      /* header */
+                      // header
                       month_caption:
                         "flex justify-center items-center py-2 md:py-3",
                       caption_label:
                         "text-[18px] md:text-[20px] font-semibold text-stone-900",
                       weekday:
                         "py-2 text-center text-[13px] md:text-[14px] font-semibold text-stone-900",
+                      //navButtons
                       button_next: "rounded-md p-2 hover:bg-stone-200",
                       button_previous: "rounded-md p-2 hover:bg-stone-200",
                       day_button:
                         "mx-auto m-[5px] grid place-items-center rounded-[8px] w-[56px] h-[34px] sm:w-[68px] sm:h-[52px] md:w-[80px] md:h-[60px] px-3 py-2 md:px-6 md:py-3 text-base font-medium leading-none select-none transition-colors hover:bg-stone-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B76851]/30",
-                      today: "!bg-transparent !text-inherit",
+                      today: "bg-transparent text-inherit",
                       outside: "text-stone-300",
                       disabled: "text-stone-300 cursor-not-allowed",
                       hidden: "invisible",
@@ -249,13 +248,8 @@ export default function BookingForm() {
                             className={`size-7 ${className}`}
                             {...p}
                           />
-                        ) : orientation === "right" ? (
-                          <ChevronRight
-                            className={`size-7 ${className}`}
-                            {...p}
-                          />
                         ) : (
-                          <ChevronDown
+                          <ChevronRight
                             className={`size-7 ${className}`}
                             {...p}
                           />
@@ -268,7 +262,7 @@ export default function BookingForm() {
                                       data-[today=true]:ring-1 data-[today=true]:ring-[#A96046]
                                       data-[selected-single=true]:!bg-[#A96046] 
                                       data-[selected-single=true]:!text-white 
-                                      data-[selected-single=true]:hover:!bg-[#8C4E3B]  /* darker on hover */"
+                                      data-[selected-single=true]:hover:!bg-[#8C4E3B]"
                         />
                       ),
                     }}
@@ -277,9 +271,9 @@ export default function BookingForm() {
                   <div className="mt-6 flex justify-end gap-4">
                     <Button
                       type="button"
-                      variant="outline"
+                      variant="ghost"
                       size="xl"
-                      className="rounded-[12px] border-[#AF674F] text-stone-500 hover:bg-[#AF674F] active:bg-[#7F3F29]"
+                      className="rounded-[12px] border border-[#AF674F] text-stone-500 hover:bg-[#AF674F] active:bg-[#7F3F29]"
                       onClick={() => {
                         setOpenCalendar(false);
                         setTempDate(selectedDate ?? undefined);
@@ -290,6 +284,7 @@ export default function BookingForm() {
                     <Button
                       type="button"
                       size="xl"
+                      variant="main"
                       className="rounded-[12px] bg-[#A96046] text-white hover:brightness-95"
                       onClick={() => {
                         if (tempDate) {
@@ -301,7 +296,7 @@ export default function BookingForm() {
                       Confirm
                     </Button>
                   </div>
-
+                  {/*backdrop*/}
                   {openTime && (
                     <div className="absolute inset-0 md:rounded-[24px] z-[40] bg-black/20 pointer-events-none md:block" />
                   )}
@@ -312,7 +307,6 @@ export default function BookingForm() {
 
           {/* Time Popover */}
           <Popover open={openTime} onOpenChange={setOpenTime}>
-            {/* Trigger button (small & tidy). Disabled until a date is picked. */}
             <PopoverTrigger asChild>
               <span
                 aria-hidden
@@ -327,16 +321,12 @@ export default function BookingForm() {
                 // Center on MOBILE (viewport)
                 "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
                 // Size
-                "w-[calc(100vw-24px)] max-w-[520px] max-h-[min(70vh,520px)] overflow-auto",
-                "rounded-[20px] border-0 bg-white shadow-2xl",
-                "z-[50]",
+                "w-[calc(100vw-24px)] max-w-[520px] max-h-[min(70vh,520px)] overflow-auto z-[50] rounded-[20px] border-0 bg-white shadow-2xl",
                 // Center on DESKTOP
                 "md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2",
                 "md:w-[487px] md:max-h-none md:px-6 md:pt-6 md:pb-6",
               ].join(" ")}
             >
-              {/* Accent color from the mock */}
-              <style>{`:root { --accent:#B76851; }`}</style>
 
               {/* Morning / Evening tabs */}
               <div className="mb-3">
@@ -354,7 +344,7 @@ export default function BookingForm() {
                         className={[
                           "relative pb-2 text-lg font-medium transition-colors",
                           active
-                            ? "text-[color:var(--accent)] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-[2px] after:h-[3px] after:w-24 after:rounded-full after:bg-[color:var(--accent)] after:content-['']"
+                            ? "text-[#B76851] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-[2px] after:h-[3px] after:w-24 after:rounded-full after:bg-[#B76851] after:content-['']"
                             : "text-stone-400 hover:text-stone-600",
                         ].join(" ")}
                       >
@@ -365,11 +355,10 @@ export default function BookingForm() {
                 </div>
               </div>
 
-              {/* Slots (compact) */}
+              {/* Slots */}
               {(() => {
                 const disabledSlots = new Set<string>(["10:00 AM"]); // to match the figma design
                 const slots = SLOTS[form.period];
-
                 return (
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3 px-2">
                     {slots.map((t) => {
@@ -389,7 +378,7 @@ export default function BookingForm() {
                               !disabled &&
                               "bg-white text-stone-900 border-stone-300 hover:bg-stone-50",
                             active &&
-                              "bg-[color:var(--accent)] text-white border-0 hover:opacity-95",
+                              "bg-[#B76851] text-white border-0 hover:opacity-95",
                             disabled &&
                               "cursor-not-allowed bg-stone-200 text-stone-400 border-stone-300",
                           ].join(" ")}
@@ -408,7 +397,7 @@ export default function BookingForm() {
                   type="button"
                   size="xl"
                   onClick={() => setOpenTime(false)}
-                  className="rounded-[12px] px-5 py-2 text-sm font-medium bg-[color:var(--accent)] text-white hover:opacity-90"
+                  className="rounded-[12px] px-5 py-2 text-sm font-medium bg-[#B76851] text-white hover:opacity-90"
                   disabled={!form.time}
                 >
                   Confirm
