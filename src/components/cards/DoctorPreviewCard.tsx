@@ -1,10 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Doctor } from "@/types/content";
 import Image from "next/image";
+import BookingModal from "@/components/BookingModal";
 
 export default function DoctorPreviewCard({ doctor }: { doctor: Doctor }) {
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+
   // Shared image background component
   const ImageBackground = () => (
     <div
@@ -65,11 +68,14 @@ export default function DoctorPreviewCard({ doctor }: { doctor: Doctor }) {
   // Shared CTA button component
   const CTAButton = () => (
     <div className="w-full lg:w-auto flex justify-center lg:justify-start mt-2 lg:mt-0">
-      <div className="px-6 py-3 bg-gradient-to-r from-[#AF674F] via-[#E28E72] to-[#AF674F] rounded-[100px] inline-flex justify-center items-center gap-2.5 cursor-pointer hover:opacity-90 transition-opacity">
+      <button
+        onClick={() => setIsBookingModalOpen(true)}
+        className="px-6 py-3 bg-gradient-to-r from-[#AF674F] via-[#E28E72] to-[#AF674F] rounded-[100px] inline-flex justify-center items-center gap-2.5 cursor-pointer hover:opacity-90 transition-opacity"
+      >
         <div className="text-center justify-start text-white text-sm lg:text-sm font-medium font-['DM_Sans']">
           Make Appointment
         </div>
-      </div>
+      </button>
     </div>
   );
 
@@ -92,6 +98,13 @@ export default function DoctorPreviewCard({ doctor }: { doctor: Doctor }) {
           </div>
         </div>
       </div>
+
+      {/* Booking Modal */}
+      <BookingModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+        doctor={doctor}
+      />
     </div>
   );
 }
