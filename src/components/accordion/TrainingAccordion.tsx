@@ -24,6 +24,27 @@ export function TrainingAccordion({
 
   return (
     <div className={className}>
+      <style jsx>{`
+        .custom-scrollbar {
+          scrollbar-width: thin;
+          scrollbar-color: #a86a3d #f9f4f2;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+          height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background-color: #a86a3d;
+          border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background-color: #f9f4f2;
+          border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background-color: #8a5630;
+        }
+      `}</style>
       <button
         className="px-5 py-2.5 w-full flex items-center justify-between rounded-xl bg-[#A86A3D] text-white text-lg font-semibold hover:bg-[#8a5630] transition-colors duration-200"
         aria-expanded={open}
