@@ -117,7 +117,6 @@ function VerticalSlider<T>({
           height={26.6}
         />
       </button>
-      {/* Dots removed as requested */}
     </div>
   );
 }

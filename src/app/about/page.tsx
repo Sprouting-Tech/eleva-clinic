@@ -43,7 +43,7 @@ export default function About() {
             >
               <DoctorCard doctor={doc} />
               {doc.training && doc.training.length > 0 && (
-                <div className="w-full max-w-sm mt-4 px-4">
+                <div className="w-full max-w-lg mt-4 px-4">
                   <TrainingAccordion items={doc.training} />
                 </div>
               )}

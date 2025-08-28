@@ -18,6 +18,10 @@ export function TrainingAccordion({
     setOpen(!open);
   };
 
+  const handleContentClick = () => {
+    setOpen(false);
+  };
+
   return (
     <div className={className}>
       <button
@@ -31,13 +35,23 @@ export function TrainingAccordion({
         </span>
       </button>
       <div
-        className={`overflow-hidden transition-all duration-400 ease-in-out ${
-          open ? "max-h-[500px] opacity-100 mt-4" : "max-h-0 opacity-0"
+        className={`overflow-hidden transition-all duration-400 ease-in-out cursor-pointer hover:bg-[#faf9f7] ${
+          open ? "max-h-[4000px] opacity-100 mt-4" : "max-h-0 opacity-0"
         }`}
+        onClick={handleContentClick}
       >
-        <ul className="flex flex-col gap-2 text-[#6B4F3A] px-2">
+        <ul
+          className="flex flex-col gap-2 text-[#6B4F3A] px-2 py-2 max-h-[3000px] md:max-h-[3500px] overflow-y-auto custom-scrollbar"
+          style={{
+            scrollbarWidth: "thin",
+            scrollbarColor: "#A86A3D #f9f4f2",
+          }}
+        >
           {items.map((item, idx) => (
-            <li key={idx} className="text-sm font-normal font-sans leading-6">
+            <li
+              key={idx}
+              className="text-sm font-normal font-sans leading-6 break-words"
+            >
               {item}
             </li>
           ))}

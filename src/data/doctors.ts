@@ -83,5 +83,6 @@ export const doctors: Doctor[] = [
     nickname: "Dr. Chaiyakorn",
     title: "Plastic Surgeon",
     image: "/images/placeholder.jpg",
+    training: ["None"],
   },
 ];
