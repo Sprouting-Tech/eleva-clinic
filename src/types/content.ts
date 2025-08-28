@@ -12,7 +12,7 @@ export type Doctor = {
   id: string;
   slug: string;
   name: string;
-  nickname: string;
+  nickname?: string;
   title?: string;
   image: string;
   description?: string;
