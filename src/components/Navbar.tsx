@@ -7,9 +7,10 @@ import { createPortal } from "react-dom";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About Us" },
+  { href: "/teatments", label: "Treatments" },
   { href: "/services", label: "Our Services", hasDropdown: true },
   { href: "/reviews", label: "Reviews" },
+  { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact Us" },
 ];
 
@@ -35,10 +36,10 @@ export default function Navbar() {
         href={href}
         onClick={closeMenu}
         className={`
-          px-3 py-2 text-sm font-medium flex items-center gap-1 transition-all duration-200
+          px-3 py-2 flex items-center gap-1 transition-all duration-200
           ${isActive 
-            ? "font-bold" 
-            : "hover:font-bold hover:shadow-lg hover:bg-white/50 hover:rounded-xl"
+            ? "" 
+            : "hover:text-black text-neutral-700"
           }
         `}
         style={{
@@ -46,7 +47,20 @@ export default function Navbar() {
           height: "26px",
           lineHeight: "26px",
           paddingTop: "0",
-          paddingBottom: "0"
+          paddingBottom: "0",
+          fontFamily: "DM Sans, sans-serif",
+          fontWeight: isActive ? 700 : 500, // 700 for bold when active, 500 for normal
+          transition: "font-weight 0.2s ease"
+        }}
+        onMouseEnter={(e) => {
+          if (!isActive) {
+            e.target.style.fontWeight = '700'; // Bold on hover
+          }
+        }}
+        onMouseLeave={(e) => {
+          if (!isActive) {
+            e.target.style.fontWeight = '500'; // Back to normal
+          }
         }}
       >
         {label}
@@ -100,7 +114,16 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full bg-[#FFEBE7]/50">
       <div className="px-4 md:px-8 flex h-[115px] items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 font-semibold">
+        <Link 
+          href="/" 
+          className="flex items-center gap-2 font-semibold"
+          style={{ 
+            paddingTop: "20px",
+            paddingBottom: "20px", 
+            paddingLeft: "48px",
+            paddingRight: "48px"
+          }}
+        >
           <img 
             src="/images/eleva_logo.png" 
             alt="Elevaclinic logo" 
@@ -110,7 +133,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
