@@ -97,7 +97,7 @@ export default function Navbar() {
   );
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[radial-gradient(circle_at_50%_45%,#FFFFFF_0%,#FFFFFF_38%,#FFE9E5_100%)]/80 backdrop-blur">
+    <header className="sticky top-0 z-50 w-full bg-[#FFE9E5_100%)]/80 backdrop-blur">
       <div className="px-4 md:px-8 flex h-[120px] items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 font-semibold">
