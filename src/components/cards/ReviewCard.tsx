@@ -8,7 +8,7 @@ interface ReviewCardProps {
 
 export default function ReviewCard({ review }: ReviewCardProps) {
   return (
-    <div className="w-full max-w-2xl mx-auto flex flex-col lg:flex-row rounded-3xl shadow-lg overflow-hidden">
+    <div className="w-full flex flex-col lg:flex-row rounded-2xl shadow-lg overflow-hidden">
       <div className="flex-1 flex items-center justify-center">
         <Image
           src={review.image} // this should be the FULL designed poster
@@ -20,7 +20,7 @@ export default function ReviewCard({ review }: ReviewCardProps) {
       </div>
 
       {/* RIGHT SIDE (Review Content) */}
-      <div className="w-full lg:w-1/2 bg-rose-100 p-6 flex flex-col justify-center">
+      <div className="w-full lg:w-1/2 bg-gradient-to-br from-rose-50 via-rose-50 to-rose-200 p-6 flex flex-col justify-center">
         {/* Profile */}
         <div className="flex items-center mb-4">
           <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden mr-4">
@@ -54,4 +54,4 @@ export default function ReviewCard({ review }: ReviewCardProps) {
       </div>
     </div>
   );
-}
+} 
