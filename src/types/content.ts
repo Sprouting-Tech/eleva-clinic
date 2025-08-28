@@ -20,7 +20,8 @@ export type Review = {
   name: string;
   rating: number;
   text: string;
-  image?: string;
+  image: string;
+  avatar: string;
 };
 export type Promotion = {
   id: string;
