@@ -12,8 +12,12 @@ export type Doctor = {
   id: string;
   slug: string;
   name: string;
+  nickname: string;
   title?: string;
   image: string;
+  description?: string;
+  study?: string[];
+  training?: string[];
 };
 export type Review = {
   id: string;
