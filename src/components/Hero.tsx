@@ -12,13 +12,13 @@ export default function Hero() {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: "easeOut", delay: 0.12 }}
-      className={`${dmSans.className} relative isolate w-full overflow-hidden min-h-[100svh]
+      className={`${dmSans.className} relative isolate w-full overflow-hidden
                   bg-[radial-gradient(circle_at_50%_45%,#FFFFFF_0%,#FFFFFF_38%,#FFE9E5_100%)]`}
     >
       {/* Mobile: grid (stack)  •  Desktop: flex (side-by-side + vertically centered) */}
-      <div className="mx-auto grid max-w-6xl px-5 py-6 md:flex md:items-center md:gap-14 md:px-10">
+      <div className="mx-auto grid max-w-6xl px-5 pb-5 md:flex md:items-center md:gap-14 md:px-10">
         {/* IMAGE — mobile first; desktop move to the right */}
-        <div className="relative order-1 mx-auto aspect-[4/5] w-full max-w-[420px] md:order-2 md:h-[640px] md:w-[56vw] md:max-w-none md:mr-[-8vw]">
+        <div className="relative order-1 mx-auto mt-[-10px] aspect-[4/5] w-full max-w-[420px] md:order-2 md:h-[640px] md:w-[56vw] md:max-w-none md:mr-[-8vw]">
           <Image
             src="/images/hero.png"
             alt="Two women with healthy skin representing Eleva Clinic’s gentle care"
@@ -29,7 +29,7 @@ export default function Hero() {
         </div>
 
         {/* TEXT + CTAs — mobile below image; desktop left */}
-        <div className="order-2 max-w-xl text-left md:order-1">
+        <div className="order-2 max-w-xl text-left md:order-1 mt-[-20px]">
           <h1 className={`${montserrat.className} text-[34px]/[1.15] text-[#9b5a42] md:text-[56px]`}>
             Eleva Clinic
           </h1>
@@ -39,7 +39,7 @@ export default function Hero() {
             radiance, combining expert care with a gentle touch.
           </p>
 
-          <div className="mt-7 flex flex-wrap gap-4">
+          <div className="mt-4 flex flex-wrap gap-4">
             <Link
               href="/treatments"
               className="inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium text-white shadow-sm
