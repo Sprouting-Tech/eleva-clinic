@@ -1,10 +1,19 @@
-export default function MapEmbed() {
+interface MapEmbedProps {
+  src: string;
+}
+
+export default function MapEmbed({ src }: MapEmbedProps) {
   return (
-    <div className="overflow-hidden rounded-2xl">
+    <div className="w-full aspect-video overflow-hidden rounded-lg shadow-lg">
       <iframe
-        className="h-[300px] w-full"
+        src={src}
+        width="100%"
+        height="100%"
+        style={{ border: 0 }}
+        allowFullScreen
         loading="lazy"
-        src="https://www.google.com/maps/embed?pb=<YOUR_PARAMS>"
+        referrerPolicy="no-referrer-when-downgrade"
+        className="w-full h-full"
       />
     </div>
   );
