@@ -79,7 +79,7 @@ export default function Slider<T>({
 
         }
         .review-swiper-pagination .swiper-pagination-bullet-active {
-          background: #e67a7a;
+          background: #AF674F;
           width:14px;
           height:14px; /* pink theme color */
           transform: scale(1.2);

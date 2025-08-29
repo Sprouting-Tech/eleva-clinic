@@ -1,16 +1,14 @@
 "use client";
 
 import { reviews, secondreviews } from "@/data/reviews";
-import { doctors } from "@/data/doctors";
 import ReviewCard from "@/components/cards/ReviewCard";
-import DoctorCard from "@/components/cards/DoctorCard";
 import Slider from "@/app/reviews/reviewslider";
 
 export default function ReviewsPage() {
   return (
     <>
       <section>
-        <h1 className="text-3xl lg:text-4xl text-center mb-4 mt-5 text-orange-300">
+        <h1 className="text-3xl font-normal font-[Montserrat] text-center mb-4 mt-5 text-[#AF674F]">
           Reviews
         </h1>
 
@@ -47,7 +45,7 @@ export default function ReviewsPage() {
             )}
             perView={1}
             breakpoints={{
-              768: { slidesPerView: 1 }, // ✅ 2 cards on tablet+
+              768: { slidesPerView: 1 }, 
             }}
             loop
           />
