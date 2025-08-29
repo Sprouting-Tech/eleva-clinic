@@ -26,6 +26,7 @@ type SliderProps<T> = {
   centered?: boolean;        
 };
 
+
 export default function Slider<T>({
   items,
   renderItem,

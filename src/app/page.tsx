@@ -1,10 +1,14 @@
 
 // app/page.tsx
 "use client";
+
 import Hero from "@/components/Hero";
 import Slider from "@/components/slider/Slider";
 import ServiceCard from "@/components/cards/ServiceCard";
 import { services } from "@/data/services";
+
+import HomeReviews from "@/components/HomeReviews"
+
 
 import HomeSections from "@/components/home/HomeSections";
 
@@ -19,9 +23,14 @@ export default function Home() {
 
   return (
 
+
     <>
       <Hero />
       <HomeSections />
+      <div>
+        <HomeReviews />
+
+      </div>
       <div className="w-full max-w-[1600px] mx-auto px-4 md:px-[48px] space-y-10 pb-12">
         {/* FAQ Section */}
         <section className="mt-16">
@@ -43,10 +52,12 @@ export default function Home() {
             <FaqAccordion items={faqs} />
           </div>
         </section>
+
+
+
       </div>
     </>
   );
 }
-
 
 
