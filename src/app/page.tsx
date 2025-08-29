@@ -11,7 +11,7 @@ export default function Home() {
   const rightFaqs = faqs.slice(half);
 
   return (
-    <div className="w-full max-w-[1600px] mx-auto px-4 md:px-[48px] space-y-10">
+    <div className="w-full max-w-[1600px] mx-auto px-4 md:px-[48px] space-y-10 pb-12">
       {/* FAQ Section */}
       <section className="mt-16">
         <div className="text-center text-[#AF674F] text-2xl md:text-4xl font-normal font-['Montserrat'] mb-12">
