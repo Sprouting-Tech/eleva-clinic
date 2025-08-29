@@ -48,7 +48,6 @@ body {
   color: #fff;
 }
 
-/* --- Promotions slider look --- */
 
 /* Center “pop”, faded neighbors */
 .promo-inline .swiper-slide {
@@ -76,20 +75,20 @@ body {
 /* Controls row centered under the slider */
 .promo-controls {
   position: relative;
-  z-index: 2;                 /* ensure clicks aren’t blocked by slides */
-  display: inline-flex;       /* shrink-wrap to arrows + dots */
+  z-index: 2;                 
+  display: inline-flex;       
   align-items: center;
   justify-content: center;
-  gap: 6px;                   /* arrows hug the dots */
-  margin: 12px auto 0;        /* center the whole row */
+  gap: 6px;                   
+  margin: 12px auto 0;        
   width: max-content;
 }
 
 /* Arrows: narrower (oval), not smaller */
 .promo-arrow {
   flex: none;
-  width: 24px;                /* narrower horizontally */
-  height: 34px;               /* same vertical height */
+  width: 24px;                
+  height: 34px;               
   border-radius: 9999px;
   background: rgba(184,122,99,.12);
   position: relative;
@@ -120,7 +119,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex: none;                 /* don’t stretch */
+  flex: none;                 
   width: auto;
 }
 .promo-dots .swiper-pagination-bullet {
@@ -140,7 +139,7 @@ body {
 .promo-controls-outer{
   width:100%;
   display:flex;
-  justify-content:center;   /* center horizontally */
+  justify-content:center;   
   margin-top:12px;
 }
 
