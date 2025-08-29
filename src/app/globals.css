@@ -1,11 +1,13 @@
 @import "tailwindcss";
 @import "swiper/css";
 @import "tw-animate-css";
-
 @custom-variant dark (&:is(.dark *));
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
 
-/* --- Design tokens (v4: @theme) --- */
-@theme {
+
+/* --- Design tokens --- */
+:root {
   --color-brand-500: #e78f6d;
   --color-brand-600: #d6785a;
   --color-sand-50: #faf6f4;
@@ -15,6 +17,7 @@
   --radius-2xl: 1.25rem;
   --shadow-soft: 0 10px 25px -10px rgb(0 0 0 / 0.15);
 }
+
 
 /* --- App base --- */
 :root {
@@ -52,22 +55,25 @@
   --sidebar-border: oklch(0.923 0.003 48.717);
   --sidebar-ring: oklch(0.709 0.01 56.259);
 }
+
 body {
   background: var(--color-sand-50);
   color: rgb(23 23 23);
 }
 
-/* helpers */
+/* Helpers */
 .container-narrow {
   inline-size: min(100%, 768px);
   margin-inline: auto;
   padding-inline: 1rem;
 }
+
 .card {
   border-radius: var(--radius-2xl);
   background: #fff;
   box-shadow: var(--shadow-soft);
 }
+
 
 
 .cal-figma { --cal-gap: 16px; }                /* Figma gap */
@@ -91,6 +97,7 @@ body {
 /* Optional: a little vertical space between weeks */
 .cal-figma :where(.rdp-week) { margin-top: .25rem; }
 
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -99,10 +106,12 @@ body {
   padding: 0.5rem 1rem;
   font-weight: 500;
 }
+
 .btn-primary {
   background: var(--color-brand-500);
   color: #fff;
 }
+
 
 
 @theme inline {
@@ -193,3 +202,107 @@ body {
   -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
           mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
 }
+
+/* Center “pop”, faded neighbors */
+.promo-inline .swiper-slide {
+  transform: scale(.9);
+  opacity: .5;
+  transition: transform .3s, opacity .3s;
+}
+.promo-inline .swiper-slide.swiper-slide-active {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Let scaled slides peek outside the container */
+.promo-inline .swiper { overflow: visible; }
+
+/* Hide Swiper’s built-in UI inside the swiper only */
+.promo-inline .swiper [class*="swiper-button-"] {
+  display: none !important;
+  pointer-events: none !important;
+}
+.promo-inline .swiper .swiper-pagination {
+  display: none !important;
+}
+
+/* Controls row centered under the slider */
+.promo-controls {
+  position: relative;
+  z-index: 2;                 
+  display: inline-flex;       
+  align-items: center;
+  justify-content: center;
+  gap: 6px;                   
+  margin: 12px auto 0;        
+  width: max-content;
+}
+
+/* Arrows: narrower (oval), not smaller */
+.promo-arrow {
+  flex: none;
+  width: 24px;                
+  height: 34px;               
+  border-radius: 9999px;
+  background: rgba(184,122,99,.12);
+  position: relative;
+  cursor: pointer;
+}
+
+/* pseudo-element base (no icon yet) */
+.promo-arrow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 12px;
+  height: 12px;
+  background: #b87a63;
+}
+
+/* Left / Right chevrons */
+.promo-arrow--prev::after {
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M15 6l-6 6 6 6' stroke='%23b87a63' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.promo-arrow--next::after {
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M9 6l6 6-6 6' stroke='%23b87a63' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+/* Dots (Swiper injects bullets here) */
+.promo-dots {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;                 
+  width: auto;
+}
+.promo-dots .swiper-pagination-bullet {
+  width: 8px; height: 8px;
+  border-radius: 9999px;
+  background: #d9c7be;
+  opacity: .6;
+  margin: 0 4px;
+  transition: opacity .2s, transform .2s;
+}
+.promo-dots .swiper-pagination-bullet-active {
+  background: #b87a63;
+  opacity: 1;
+  transform: scale(1.1);
+}
+/* full-width bar centers the controls relative to the section */
+.promo-controls-outer{
+  width:100%;
+  display:flex;
+  justify-content:center;   
+  margin-top:12px;
+}
+
+/* the inner row shrink-wraps arrows + dots */
+.promo-controls{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  width:max-content;
+}
+
+
