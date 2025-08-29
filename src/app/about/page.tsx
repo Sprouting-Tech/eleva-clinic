@@ -1,5 +1,6 @@
 "use client";
 
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade } from "swiper/modules";
 import "swiper/css";
@@ -9,10 +10,15 @@ import Slider from "@/components/slider/VerticalSlider";
 import DoctorCard from "@/components/cards/DoctorCard";
 import { doctors } from "@/data/doctors";
 import { TrainingAccordion } from "@/components/accordion/TrainingAccordion";
+import  FAQAccordion from "@/components/accordion/FaqAccordion";
+import { faqs } from "@/data/faqs";
 
 export default function About() {
   const [currentDoctorIndex, setCurrentDoctorIndex] = useState(0);
   const currentDoctor = doctors[currentDoctorIndex];
+  const half = Math.ceil(faqs.length / 2);
+  const leftFaqs = faqs.slice(0, half);
+  const rightFaqs = faqs.slice(half);
   const handleDoctorChange = (index: number) => {
     setCurrentDoctorIndex(index);
   };
@@ -112,9 +118,34 @@ export default function About() {
           />
         </div>
       </section>
+      {/* FAQ Section */}
+
+      <section className="mt-16 pb-12">
+        <div className="text-center text-[#AF674F] text-2xl md:text-4xl font-normal font-['Montserrat'] mb-12 ">
+          FAQs
+        </div>
+
+        {/* Desktop: Grid Layout */}
+        <div className="hidden md:grid md:grid-cols-2 gap-6 max-w-[1200px] mx-auto">
+          <div className="flex flex-col gap-4 items-center">
+            <FAQAccordion items={leftFaqs} />
+          </div>
+          <div className="flex flex-col gap-4 items-center">
+            <FAQAccordion items={rightFaqs} />
+          </div>
+        </div>
+        {/* Mobile: Single Column */}
+        <div className="md:hidden space-y-4">
+          <FAQAccordion items={faqs} />
+        </div>
+      </section>
     </div>
+
     </>
   );
 }
+
+
+
 
 
