@@ -1,6 +1,14 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { DM_Sans } from "next/font/google";
+import { Toaster } from "sonner";
+
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
+});
 
 export const metadata = { 
   title: "Eleva Clinic", 
@@ -21,6 +29,7 @@ export default function RootLayout({
             {children}
         </main>
         <Footer />
+        <Toaster position="top-center" richColors />
       </body>
     </html>
   );
