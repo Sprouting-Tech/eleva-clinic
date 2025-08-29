@@ -94,7 +94,7 @@ export default function HomeReviews() {
                             spaceBetween={12}
                         >
                             {secondreviews.map((review) => (
-                                <SwiperSlide key={`second2-${review.id}`}>
+                                <SwiperSlide key={`second2-${review.id}}`}>
                                     <ReviewCard review={review} />
                                 </SwiperSlide>
                             ))}
