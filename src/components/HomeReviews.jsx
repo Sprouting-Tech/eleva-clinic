@@ -48,7 +48,7 @@ export default function HomeReviews() {
                     spaceBetween={12}
                 >
                     {reviews.map((review) => (
-                        <SwiperSlide key={review.id}>
+                        <SwiperSlide key={`review-${review.id}`}>
                             <ReviewCard review={review} />
                         </SwiperSlide>
                     ))}
@@ -56,7 +56,7 @@ export default function HomeReviews() {
 
                 {/* Right arrow only */}
                 <div className="hidden md:flex swiper-next absolute top-1/2 -right-13 transform -translate-y-1/2 cursor-pointer p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#AF674F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#AF674F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M9 18l6-6-6-6" />
                     </svg>
                 </div>
@@ -94,7 +94,7 @@ export default function HomeReviews() {
                             spaceBetween={12}
                         >
                             {secondreviews.map((review) => (
-                                <SwiperSlide key={review.id}>
+                                <SwiperSlide key={`second-${review.id}`}>
                                     <ReviewCard review={review} />
                                 </SwiperSlide>
                             ))}
@@ -102,7 +102,7 @@ export default function HomeReviews() {
 
                         {/* Right arrow only */}
                         <div className="hidden md:flex swiper-next absolute top-1/2 -right-13 transform -translate-y-1/2 cursor-pointer p-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#AF674F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#AF674F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M9 18l6-6-6-6" />
                             </svg>
 
