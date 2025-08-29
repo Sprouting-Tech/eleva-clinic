@@ -22,10 +22,10 @@ export default function Slider<T>({
   items,
   renderItem,
   perView = 1,
-  breakpoints = { 768: { slidesPerView: 2 } },
+  breakpoints = { 768: { slidesPerView: 1 } },
   space = 12,
   className,
-  loop = false,
+  loop = true,
 }: SliderProps<T>) {
   const id = useId(); // unique id per instance
 
@@ -50,7 +50,7 @@ export default function Slider<T>({
       >
         {items.map((it, i) => (
           <SwiperSlide key={i}>
-              {renderItem(it, i)}
+            {renderItem(it, i)}
           </SwiperSlide>
         ))}
       </Swiper>
@@ -58,31 +58,49 @@ export default function Slider<T>({
       {/* Navigation + Pagination BELOW */}
       <div className="hidden md:flex justify-center items-center gap-6 mt-4">
         <button className="review-swiper-prev px-8 hover:bg-gray-100 transition">
-          🡨
+          <svg xmlns="http://www.w3.org/2000/svg"
+            width="30" height="30"
+            viewBox="0 0 24 24"
+            fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.8">
+            <line x1="19" y1="12" x2="5" y2="12" />
+            <polyline points="12 19 5 12 12 5" />
+          </svg>
+
         </button>
+
         <div className="review-swiper-pagination flex justify-center"></div>
         <button className="review-swiper-next px-8 hover:bg-gray-100 transition">
-          🡪
+          <svg xmlns="http://www.w3.org/2000/svg"
+            width="30" height="30"
+            viewBox="0 0 24 24"
+            fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.8">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+
         </button>
+
       </div>
 
       {/* Custom Swiper Styles */}
       <style jsx global>{`
         .review-swiper-pagination .swiper-pagination-bullet {
           background: #d9d9d9;
-          width: 12px;
-          height: 12px;
+          width: 11px;
+          height: 11px;
           border-radius: 50%;
           opacity: 1;
-          transition: transform 1s ease;
+          transition: transform 0.8s ease;
           transform: scale(1);
 
         }
         .review-swiper-pagination .swiper-pagination-bullet-active {
           background: #AF674F;
-          width:14px;
-          height:14px; /* pink theme color */
-          transform: scale(1.2);
+          width:12px;
+          height:12px; /* pink theme color */
+          transform: scale(1.15);
         }
       `}</style>
     </div>

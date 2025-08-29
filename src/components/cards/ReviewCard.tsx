@@ -20,7 +20,7 @@ export default function ReviewCard({ review }: ReviewCardProps) {
       </div>
 
       {/* RIGHT SIDE (Review Content) */}
-      <div className="w-full lg:w-1/2 bg-gradient-to-br from-rose-50 via-rose-50 to-rose-200 p-6 flex flex-col justify-center">
+      <div className="w-full lg:w-1/2 bg-[linear-gradient(to_bottom_right,#F6F6F6_24%,#FFD1C8_70%,#FFD1C2_100%)] p-6 flex flex-col justify-center">
         {/* Profile */}
         <div className="flex items-center mb-4">
           <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden mr-4">

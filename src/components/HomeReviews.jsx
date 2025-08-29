@@ -1,5 +1,5 @@
 "use client";
-import { useState, useId , useEffect } from "react";
+import { useState, useId, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -16,24 +16,24 @@ export default function HomeReviews() {
     const id1 = useId();
     const id2 = useId();
 
-    useEffect(() =>{
+    useEffect(() => {
         const handleResize = () => {
             setIsMobile(window.innerWidth < 768);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-}, []);
+        };
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     return (
-        <div className="max-w-3xl mx-auto py-3">
-            <h2 className="mb-3 text-3xl font-[Montserrat] text-center text-[#AF674F]">
-                What our Clients Say
+        <div className="max-w-4xl mx-auto py-3 px-5">
+            <h2 className="mb-3 text-2xl font-[Montserrat] text-center text-[#AF674F]">
+                Reviews
             </h2>
 
             <h2 className="text-xl lg:text-xl mb-2 text-gray-900">
                 รีวิวการกระชับใบหน้า
-            </h2>            
+            </h2>
             <div id={`slider-${id1}`} className="relative mb-8">
                 <Swiper
                     modules={[Navigation]}
@@ -64,18 +64,18 @@ export default function HomeReviews() {
 
             {/* Show button if second carousel is hidden */}
             {!isMobile && (
-            <div className="mt-6 flex justify-center">
-                <button
-                    onClick={() => setShowSecond(!showSecond)}
-                    className="px-2.5 py-1.5 bg-gradient-to-br from-[#AF674F] via-[#E28E72] to-[#AF674F] text-white text-xs rounded-full"
-                >
-                    {showSecond ? " Hide Reviews " : " View All Reviews"}
-                </button>
-            </div>)}
+                <div className="mt-6 flex justify-center">
+                    <button
+                        onClick={() => setShowSecond(!showSecond)}
+                        className="px-2.5 py-1.5 bg-gradient-to-br from-[#AF674F] via-[#E28E72] to-[#AF674F] text-white text-xs rounded-full"
+                    >
+                        {showSecond ? " Hide Reviews " : " View All Reviews"}
+                    </button>
+                </div>)}
 
 
 
-            {(isMobile || showSecond)&& (
+            {(isMobile || showSecond) && (
                 <>
                     <h2 className="text-xl mt-3 lg:text-xl text-gray-900">
                         รีวิวการเลเซอร์กำจัดขน

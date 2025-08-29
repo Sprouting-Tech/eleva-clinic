@@ -7,13 +7,13 @@ import Slider from "@/app/reviews/reviewslider";
 export default function ReviewsPage() {
   return (
     <>
-      <section>
-        <h1 className="text-3xl font-normal font-[Montserrat] text-center mb-4 mt-5 text-[#AF674F]">
+      <section className="px-5">
+        <h1 className="text-2xl text-center font-[Montserrat] text-[#AF674F] mb-4 mt-10">
           Reviews
         </h1>
 
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-xl lg:text-xl mb-2 text-gray-900">
+        <div className="max-w-4xl mb-10 mx-auto">
+          <h2 className="text-xl font-sans mb-2 text-gray-900">
             รีวิวการกระชับใบหน้า
           </h2>
 
@@ -32,9 +32,9 @@ export default function ReviewsPage() {
 
       </section>
 
-      <section>
-        <div className="max-w-3xl mt-8 mx-auto">
-          <h2 className="text-xl lg:text-xl mb-2 text-gray-900">
+      <section className="px-5">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-xl font-sans mb-2 text-gray-900">
             รีวิวการเลเซอร์กำจัดขน
           </h2>
 
@@ -45,7 +45,7 @@ export default function ReviewsPage() {
             )}
             perView={1}
             breakpoints={{
-              768: { slidesPerView: 1 }, 
+              768: { slidesPerView: 1 }, // ✅ 2 cards on tablet+
             }}
             loop
           />
