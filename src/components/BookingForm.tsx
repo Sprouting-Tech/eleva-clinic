@@ -4,15 +4,14 @@ import { useMemo, useState, useEffect } from "react";
 import { format } from "date-fns";
 import { enUS } from "date-fns/locale";
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
-import {toast} from "sonner";
-
+import { toast } from "sonner";
 // shadcn/ui
-import { Calendar,  CalendarDayButton } from "@/components/ui/calendar";
+import { Calendar, CalendarDayButton } from "@/components/ui/calendar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 
-/* Define form type */
+//form type
 type Form = {
   name: string;
   phone: string;
@@ -21,13 +20,13 @@ type Form = {
   period: "morning" | "evening";
 };
 
-/* Time Slots */
+// Time SLots
 const SLOTS: Record<Form["period"], string[]> = {
   morning: ["09:00 AM", "10:00 AM", "11:00 AM"],
   evening: ["01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"],
 };
 
-/* Helper function to format date */
+//Helper function to format date
 function toISODate(d: Date) {
   const y = d.getFullYear();
   const m = String(d.getMonth() + 1).padStart(2, "0");
@@ -36,7 +35,6 @@ function toISODate(d: Date) {
 }
 
 export default function BookingForm() {
-
   const [form, setForm] = useState<Form>({
     name: "",
     phone: "",
@@ -51,16 +49,20 @@ export default function BookingForm() {
   // Temp date inside calendar modal
   const [tempDate, setTempDate] = useState<Date | undefined>(undefined);
 
-  const isPhoneValid = /^\d{7,}$/.test(form.phone);
+  const isNameValid = useMemo(()=>{
+    const trimed = form.name.trim();
+    return /^\S+\s+\S+/.test(trimed);
+  }, [form.name]);
+  const isPhoneValid = /^0\d{9,}$/.test(form.phone);
   const isValid = useMemo(
     () =>
       !!(
-        form.name.trim() !== "" &&
+        isNameValid &&
         isPhoneValid &&
         form.date.trim() !== "" &&
         form.time.trim() !== ""
       ),
-    [form, isPhoneValid]
+    [isNameValid, isPhoneValid, form.date, form.time],
   );
 
   const selectedDate: Date | undefined = form.date
@@ -72,9 +74,9 @@ export default function BookingForm() {
   // Initialize tempDate when opening calendar
   useEffect(() => {
     if (openCalendar) setTempDate(selectedDate ?? new Date());
-  }, [openCalendar]); 
+  }, [openCalendar]);
 
-  /* Updaters */
+  //Updaters
   function onChange<K extends keyof Form>(key: K, v: string) {
     setSubmitted(false);
     setForm((prev) => ({
@@ -83,24 +85,20 @@ export default function BookingForm() {
     }));
   }
 
-  /* Submit */
+  // Submit
   function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!isValid) return;
-
     setSubmitted(true);
-
-    const prettyDate = selectedDate
-      ? format(selectedDate, "dd/MM/yyyy")
-      : "—";
+    const prettyDate = selectedDate ? format(selectedDate, "dd/MM/yyyy") : "—";
 
     toast.success("Booking submitted", {
-      description: `${prettyDate} at ${form.time} • ${form.phone}`,
+      description: `${form.name} • ${prettyDate} at ${form.time}`,
       duration: 4000,
     });
   }
 
-  /* UI */
+  //UI
   return (
     <div className="mx-auto max-w-4xl rounded-[28px] bg-stone-100 p-6 md:p-8">
       <form
@@ -144,7 +142,7 @@ export default function BookingForm() {
             />
             {!isPhoneValid && form.phone !== "" && (
               <p className="pt-1 text-xs text-rose-600">
-                Digits only, at least 7 numbers.
+                Must start with zero, at least 10 numbers.
               </p>
             )}
           </div>
@@ -154,67 +152,58 @@ export default function BookingForm() {
         <div className="mt-6 md:mt-7 grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-2">
           <div className="flex flex-col space-y-3 md:space-y-7">
             <label className="text-sm text-black">Select Date and Time</label>
-
-            {/* Trigger: open calendar modal */}
-            <button
+            {/* Trigger to open calendar modal */}
+            <Button
               type="button"
               aria-label="Select date and time"
               onClick={() => setOpenCalendar(true)}
-              className="w-full md:w-[341px] h-12 md:h-[73px] rounded-[14px] md:rounded-[20px] border-2 border-stone-400/90 px-4 py-3 md:px-[20px] md:py-[15px]
-                         text-base md:text-[20px] outline-none focus:border-stone-500 focus:ring-0
-                         placeholder:font-light placeholder:text-base md:placeholder:text-[20px] placeholder:leading-[20px] placeholder:text-black/60"
+              variant="ghost"
+              className="w-full md:w-[341px] h-12 md:h-[73px] rounded-[14px] md:rounded-[20px] 
+                        border-2 border-stone-400/90 px-4 md:px-[20px]
+                        text-left text-base md:text-[20px] outline-none focus:border-stone-500 focus:ring-0
+                        placeholder:font-light placeholder:text-base md:placeholder:text-[20px] 
+                        placeholder:leading-[20px] placeholder:text-black/60"
             >
-              <div className="flex items-center justify-between">
-                <span
-                  className={
-                    form.date || form.time
-                      ? "text-stone-900 text-[20px] leading-[20px] font-normal"
-                      : "text-black/60 text-[20px] leading-[20px]"
-                  }
-                >
-                  {form.date && selectedDate
-                    ? `${format(selectedDate, "dd/MM")} , ${form.time || "Time"}`
-                    : "DD/MM , Time"}
-                </span>
-                <ChevronDown className="h-4 w-4 text-black/50" />
-              </div>
-            </button>
+              <span
+                className={
+                  form.date || form.time
+                    ? "text-stone-900 text-[20px] leading-[20px] font-normal"
+                    : "text-black/60 text-[20px] leading-[20px]"
+                }
+              >
+                {form.date && selectedDate
+                  ? `${format(selectedDate, "dd/MM")} , ${form.time || "Time"}`
+                  : "DD/MM , Time"}
+              </span>
+              <ChevronDown className="ml-auto h-4 w-4 text-black/50" />
+            </Button>
           </div>
         </div>
+
         <div className="relative">
           {/* Calendar Modal */}
           <Dialog open={openCalendar} onOpenChange={setOpenCalendar}>
             <DialogContent
               showCloseButton={false}
-              className="overflow-hidden
-                        p-0
-                        w-[calc(100vw-24px)]
-                        max-w-[720px]
-                        md:max-w-[760px]
-                        rounded-[24px]
-                        shadow-xl"
-              
+              className="overflow-hidden p-0 w-[calc(100vw-24px)] max-w-[720px] md:max-w-[760px] rounded-[24px] shadow-xl"
               onInteractOutside={(e) => {
-                const el = e.target as HTMLElement | null;
-                if (el && el.closest('[data-time-popover="true"]')) {
-                e.preventDefault(); // to allow popover interaction without closing dialog
+                const element = e.target as HTMLElement | null;
+                if (element && element.closest('[data-time-popover="true"]')) {
+                  e.preventDefault(); // to allow popover interaction without closing dialog
                 }
               }}
               onPointerDownOutside={(e) => {
-                const el = e.target as HTMLElement | null;
-                if (el && el.closest('[data-time-popover="true"]')) {
-                e.preventDefault();
+                const element = e.target as HTMLElement | null;
+                if (element && element.closest('[data-time-popover="true"]')) {
+                  e.preventDefault();
                 }
               }}
-              >
+            >
               <DialogHeader className="sr-only">
                 <DialogTitle>Select a date</DialogTitle>
               </DialogHeader>
 
               <div className="max-h-[80vh] overflow-auto py-6">
-                {/* Accent color */}
-                <style>{`:root { --accent:#B76851; --cell-size:44px } @media (min-width:768px){ :root{ --cell-size:56px } }`}</style>
-                {/* change: removed fixed h-[] so the calendar can breathe inside the dialog */}
                 <div className="mx-auto w-full max-w-[650px] rounded-[24px] bg-transparent">
                   <Calendar
                     mode="single"
@@ -226,7 +215,6 @@ export default function BookingForm() {
                     formatters={{
                       formatWeekdayName: (date) => format(date, "EEE"),
                     }}
-
                     className="w-full relative bg-transparent p-0"
                     onSelect={(d) => {
                       if (!d) return;
@@ -235,35 +223,41 @@ export default function BookingForm() {
                       setOpenTime(true);
                     }}
                     classNames={{
-                      root:"w-full bg-transparent p-0",
+                      root: "w-full bg-transparent p-0",
                       table: "w-full table-fixed border-collapse",
                       weekdays: "space-y-5",
-                      week: "",
+                      week: "mt-1",
                       day: "p-[5px] text-center align-middle",
-
-                      /* header */
-                      month_caption: "flex justify-center items-center py-2 md:py-3",
-                      caption_label: "text-[18px] md:text-[20px] font-semibold text-stone-900",
-                      weekday: "py-2 text-center text-[13px] md:text-[14px] font-semibold text-stone-900",
+                      // header
+                      month_caption:
+                        "flex justify-center items-center py-2 md:py-3",
+                      caption_label:
+                        "text-[18px] md:text-[20px] font-semibold text-stone-900",
+                      weekday:
+                        "py-2 text-center text-[13px] md:text-[14px] font-semibold text-stone-900",
+                      //navButtons
                       button_next: "rounded-md p-2 hover:bg-stone-200",
                       button_previous: "rounded-md p-2 hover:bg-stone-200",
-
-                      day_button: "mx-auto m-[5px] grid place-items-center rounded-[8px] w-[56px] h-[34px] sm:w-[68px] sm:h-[52px] md:w-[80px] md:h-[60px] px-3 py-2 md:px-6 md:py-3 text-base font-medium leading-none select-none transition-colors hover:bg-stone-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B76851]/30",
-
-                      today: "!bg-transparent !text-inherit",       // no grey bg for today
-                      outside: "text-stone-300",                   
+                      day_button:
+                        "mx-auto m-[5px] grid place-items-center rounded-[8px] w-[56px] h-[34px] sm:w-[68px] sm:h-[52px] md:w-[80px] md:h-[60px] px-3 py-2 md:px-6 md:py-3 text-base font-medium leading-none select-none transition-colors hover:bg-stone-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B76851]/30",
+                      today: "bg-transparent text-inherit",
+                      outside: "text-stone-300",
                       disabled: "text-stone-300 cursor-not-allowed",
                       hidden: "invisible",
                     }}
                     components={{
                       Chevron: ({ orientation, className, ...p }) =>
-                      orientation === "left" ? (
-                        <ChevronLeft className={`size-7 ${className}`} {...p} />
-                      ) : orientation === "right" ? (
-                        <ChevronRight className={`size-7 ${className}`} {...p} />
-                      ) : (
-                        <ChevronDown className={`size-7 ${className}`} {...p} />
-                      ),
+                        orientation === "left" ? (
+                          <ChevronLeft
+                            className={`size-7 ${className}`}
+                            {...p}
+                          />
+                        ) : (
+                          <ChevronRight
+                            className={`size-7 ${className}`}
+                            {...p}
+                          />
+                        ),
                       DayButton: (props) => (
                         <CalendarDayButton
                           {...props}
@@ -272,7 +266,7 @@ export default function BookingForm() {
                                       data-[today=true]:ring-1 data-[today=true]:ring-[#A96046]
                                       data-[selected-single=true]:!bg-[#A96046] 
                                       data-[selected-single=true]:!text-white 
-                                      data-[selected-single=true]:hover:!bg-[#8C4E3B]  /* darker on hover */"
+                                      data-[selected-single=true]:hover:!bg-[#8C4E3B]"
                         />
                       ),
                     }}
@@ -281,12 +275,12 @@ export default function BookingForm() {
                   <div className="mt-6 flex justify-end gap-4">
                     <Button
                       type="button"
-                      variant="outline"
+                      variant="ghost"
                       size="xl"
-                      className="rounded-[12px] border-[#A96046] text-[#A96046] hover:bg-[#F5EDE9]"
+                      className="rounded-[12px] border border-[#AF674F] text-stone-500 hover:bg-[#AF674F] active:bg-[#7F3F29]"
                       onClick={() => {
                         setOpenCalendar(false);
-                        setTempDate(selectedDate ?? undefined); // discard changes
+                        setTempDate(selectedDate ?? undefined);
                       }}
                     >
                       Cancel
@@ -294,6 +288,7 @@ export default function BookingForm() {
                     <Button
                       type="button"
                       size="xl"
+                      variant="main"
                       className="rounded-[12px] bg-[#A96046] text-white hover:brightness-95"
                       onClick={() => {
                         if (tempDate) {
@@ -305,23 +300,17 @@ export default function BookingForm() {
                       Confirm
                     </Button>
                   </div>
-
+                  {/*backdrop*/}
                   {openTime && (
-                    <div className="absolute inset-0 md:rounded-[24px]
-                                    z-[40]                     
-                                    bg-black/20         
-                                    pointer-events-none
-                                    md:block" />
+                    <div className="absolute inset-0 md:rounded-[24px] z-[40] bg-black/20 pointer-events-none md:block" />
                   )}
                 </div>
               </div>
-              
             </DialogContent>
           </Dialog>
 
           {/* Time Popover */}
           <Popover open={openTime} onOpenChange={setOpenTime}>
-            {/* Trigger button (small & tidy). Disabled until a date is picked. */}
             <PopoverTrigger asChild>
               <span
                 aria-hidden
@@ -333,19 +322,15 @@ export default function BookingForm() {
               data-time-popover="true"
               align="center"
               className={[
-                  // Center on MOBILE (viewport)
-                  "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
-                  // Size
-                  "w-[calc(100vw-24px)] max-w-[520px] max-h-[min(70vh,520px)] overflow-auto",
-                  "rounded-[20px] border-0 bg-white shadow-2xl",
-                  "z-[50]", 
-                  // Center on DESKTOP
-                  "md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2",
-                  "md:w-[487px] md:max-h-none md:px-6 md:pt-6 md:pb-6",
-                ].join(" ")}
+                // Center on MOBILE (viewport)
+                "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
+                // Size
+                "w-[calc(100vw-24px)] max-w-[520px] max-h-[min(70vh,520px)] overflow-auto z-[50] rounded-[20px] border-0 bg-white shadow-2xl",
+                // Center on DESKTOP
+                "md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2",
+                "md:w-[487px] md:max-h-none md:px-6 md:pt-6 md:pb-6",
+              ].join(" ")}
             >
-              {/* Accent color from the mock */}
-              <style>{`:root { --accent:#B76851; }`}</style>
 
               {/* Morning / Evening tabs */}
               <div className="mb-3">
@@ -363,7 +348,7 @@ export default function BookingForm() {
                         className={[
                           "relative pb-2 text-lg font-medium transition-colors",
                           active
-                            ? "text-[color:var(--accent)] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-[2px] after:h-[3px] after:w-24 after:rounded-full after:bg-[color:var(--accent)] after:content-['']"
+                            ? "text-[#B76851] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-[2px] after:h-[3px] after:w-24 after:rounded-full after:bg-[#B76851] after:content-['']"
                             : "text-stone-400 hover:text-stone-600",
                         ].join(" ")}
                       >
@@ -374,11 +359,10 @@ export default function BookingForm() {
                 </div>
               </div>
 
-              {/* Slots (compact) */}
+              {/* Slots */}
               {(() => {
                 const disabledSlots = new Set<string>(["10:00 AM"]); // to match the figma design
                 const slots = SLOTS[form.period];
-
                 return (
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3 px-2">
                     {slots.map((t) => {
@@ -394,9 +378,13 @@ export default function BookingForm() {
                           disabled={disabled}
                           className={[
                             "h-12 rounded-[12px] px-5 text-[18px] transition",
-                            !active && !disabled && "bg-white text-stone-900 border-stone-300 hover:bg-stone-50",
-                            active && "bg-[color:var(--accent)] text-white border-0 hover:opacity-95",
-                            disabled && "cursor-not-allowed bg-stone-200 text-stone-400 border-stone-300",
+                            !active &&
+                              !disabled &&
+                              "bg-white text-stone-900 border-stone-300 hover:bg-stone-50",
+                            active &&
+                              "bg-[#B76851] text-white border-0 hover:opacity-95",
+                            disabled &&
+                              "cursor-not-allowed bg-stone-200 text-stone-400 border-stone-300",
                           ].join(" ")}
                         >
                           {t}
@@ -413,7 +401,7 @@ export default function BookingForm() {
                   type="button"
                   size="xl"
                   onClick={() => setOpenTime(false)}
-                  className="rounded-[12px] px-5 py-2 text-sm font-medium bg-[color:var(--accent)] text-white hover:opacity-90"
+                  className="rounded-[12px] px-5 py-2 text-sm font-medium bg-[#B76851] text-white hover:opacity-90"
                   disabled={!form.time}
                 >
                   Confirm
@@ -431,7 +419,13 @@ export default function BookingForm() {
             variant="main"
             className="rounded-[15px] border-2 border-stone-900 bg-white px-6 py-3 text-sm text-black/73"
             onClick={() =>
-              setForm({ name: "", phone: "", date: "", time: "", period: "morning" })
+              setForm({
+                name: "",
+                phone: "",
+                date: "",
+                time: "",
+                period: "morning",
+              })
             }
           >
             Cancel
