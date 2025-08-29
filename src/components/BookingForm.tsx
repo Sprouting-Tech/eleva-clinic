@@ -49,16 +49,20 @@ export default function BookingForm() {
   // Temp date inside calendar modal
   const [tempDate, setTempDate] = useState<Date | undefined>(undefined);
 
-  const isPhoneValid = /^\d{7,}$/.test(form.phone);
+  const isNameValid = useMemo(()=>{
+    const trimed = form.name.trim();
+    return /^\S+\s+\S+/.test(trimed);
+  }, [form.name]);
+  const isPhoneValid = /^0\d{9,}$/.test(form.phone);
   const isValid = useMemo(
     () =>
       !!(
-        form.name.trim() !== "" &&
+        isNameValid &&
         isPhoneValid &&
         form.date.trim() !== "" &&
         form.time.trim() !== ""
       ),
-    [form, isPhoneValid],
+    [isNameValid, isPhoneValid, form.date, form.time],
   );
 
   const selectedDate: Date | undefined = form.date
@@ -138,7 +142,7 @@ export default function BookingForm() {
             />
             {!isPhoneValid && form.phone !== "" && (
               <p className="pt-1 text-xs text-rose-600">
-                Digits only, at least 7 numbers.
+                Must start with zero, at least 10 numbers.
               </p>
             )}
           </div>
