@@ -7,7 +7,7 @@ import { createPortal } from "react-dom";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/teatments", label: "Treatments" },
+  { href: "/treatments", label: "Treatments" },
   { href: "/services", label: "Our Services", hasDropdown: true },
   { href: "/reviews", label: "Reviews" },
   { href: "/about", label: "About Us" },
