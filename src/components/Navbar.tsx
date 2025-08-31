@@ -5,9 +5,22 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 
-const NAV_LINKS = [
+
+interface NavLinkItem {
+  href: string;
+  label: string;
+  hasDropdown?: boolean;
+}
+
+interface NavLinkProps {
+  href: string;
+  label: string;
+  hasDropdown?: boolean;
+}
+
+const NAV_LINKS: NavLinkItem[] = [
   { href: "/", label: "Home" },
-  { href: "/treatments", label: "Treatments" },
+  { href: "/treatments", label: "Treatments" }, 
   { href: "/services", label: "Our Services", hasDropdown: true },
   { href: "/reviews", label: "Reviews" },
   { href: "/about", label: "About Us" },
@@ -28,7 +41,7 @@ export default function Navbar() {
   const openMenu = () => setIsMenuOpen(true);
 
   // Navigation Link Component
-  const NavLink = ({ href, label, hasDropdown }) => {
+  const NavLink = ({ href, label, hasDropdown }: NavLinkProps) => {
     const isActive = pathname === href;
     
     return (
@@ -44,22 +57,24 @@ export default function Navbar() {
         `}
         style={{
           color: isActive ? "#7F3F29" : "#AF674F",
-          height: "26px",
+          height: "46px", 
           lineHeight: "26px",
           paddingTop: "0",
           paddingBottom: "0",
           fontFamily: "DM Sans, sans-serif",
-          fontWeight: isActive ? 700 : 500, // 700 for bold when active, 500 for normal
-          transition: "font-weight 0.2s ease"
+          fontWeight: isActive ? 700 : 500,
+          transition: "font-weight 0.2s ease",
+          display: "flex",
+          alignItems: "center"
         }}
-        onMouseEnter={(e) => {
+        onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => {
           if (!isActive) {
-            e.target.style.fontWeight = '700'; // Bold on hover
+            (e.target as HTMLElement).style.fontWeight = '700'; 
           }
         }}
-        onMouseLeave={(e) => {
+        onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => {
           if (!isActive) {
-            e.target.style.fontWeight = '500'; // Back to normal
+            (e.target as HTMLElement).style.fontWeight = '500'; 
           }
         }}
       >
@@ -77,22 +92,30 @@ export default function Navbar() {
   const MobileMenu = () => (
     <div 
       className="fixed inset-0 z-[999] animate-in slide-in-from-top duration-300"
-      style={{ backgroundColor: "#FFEBE7" }}
+      style={{ backgroundColor: "rgba(255, 235, 231)" }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-white/20">
+      <div 
+        className="flex items-center justify-between border-b border-white/20"
+        style={{ padding: "16px" }}
+      >
         <Link href="/" onClick={closeMenu} className="flex items-center gap-2 font-semibold">
           <img 
             src="/images/eleva_logo.png" 
             alt="Elevaclinic logo" 
             className="object-contain"
-            style={{ width: "80px", height: "60px" }}
+            style={{ width: "43px", height: "32px" }}
           />
         </Link>
         <button
           onClick={closeMenu}
-          className="rounded-xl px-3 py-2 text-lg hover:bg-white/50 transition-all duration-200"
-          style={{ color: "#AF674F" }}
+          className="rounded-xl px-3 py-2 hover:bg-white/50 transition-all duration-200 flex items-center justify-center"
+          style={{ 
+            color: "#AF674F",
+            width: "24px",
+            height: "24px",
+            fontSize: "16px"
+          }}
           aria-label="Close menu"
         >
           ✕
@@ -100,8 +123,8 @@ export default function Navbar() {
       </div>
       
       {/* Navigation */}
-      <div className="p-4">
-        <nav className="flex flex-col gap-2">
+      <div style={{ padding: "16px" }}>
+        <nav className="flex flex-col" style={{ gap: "16px" }}>
           {NAV_LINKS.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
@@ -111,28 +134,28 @@ export default function Navbar() {
   );
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#FFEBE7]/50">
-      <div className="px-4 md:px-8 flex h-[115px] items-center justify-between">
-        {/* Logo */}
+    <header 
+      className="sticky top-0 z-50 w-full"
+      style={{ 
+        backgroundColor: "rgba(255, 235, 231, 0.5)", 
+        backdropFilter: "blur(100px)",
+        WebkitBackdropFilter: "blur(100px)" 
+      }}
+    >
+      <div className="flex items-center justify-between w-[375px] h-16 p-4 opacity-100 md:w-full md:h-[115px] md:px-8">
+        {/* Logo - Responsive sizes */}
         <Link 
           href="/" 
-          className="flex items-center gap-2 font-semibold"
-          style={{ 
-            paddingTop: "20px",
-            paddingBottom: "20px", 
-            paddingLeft: "48px",
-            paddingRight: "48px"
-          }}
+          className="flex items-center gap-2 font-semibold md:py-5 md:px-12"
         >
           <img 
             src="/images/eleva_logo.png" 
             alt="Elevaclinic logo" 
-            className="object-contain"
-            style={{ width: "100px", height: "75px" }}
+            className="object-contain w-[43px] h-[32px] md:w-[100px] md:h-[75px]"
           />
         </Link>
 
-        {/* Desktop Navigation */}
+        {/* Desktop */}
         <nav className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map((link) => (
             <NavLink key={link.href} {...link} />
@@ -142,8 +165,13 @@ export default function Navbar() {
         {/* Mobile Hamburger */}
         <button
           onClick={openMenu}
-          className="md:hidden rounded-xl px-3 py-2 text-sm font-medium hover:bg-white/50 transition-all duration-200"
-          style={{ color: "#AF674F" }}
+          className="md:hidden rounded-xl hover:bg-white/50 transition-all duration-200 flex items-center justify-center"
+          style={{ 
+            color: "#AF674F",
+            width: "24px",
+            height: "24px",
+            fontSize: "16px"
+          }}
           aria-label="Open menu"
         >
           ☰
