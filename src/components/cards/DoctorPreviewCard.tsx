@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Doctor } from "@/types/content";
 import Image from "next/image";
-import BookingModal from "@/components/BookingModal";
+import BookingForm from "@/components/BookingForm";
 
 export default function DoctorPreviewCard({ doctor }: { doctor: Doctor }) {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
@@ -99,11 +99,10 @@ export default function DoctorPreviewCard({ doctor }: { doctor: Doctor }) {
         </div>
       </div>
 
-      {/* Booking Modal */}
-      <BookingModal
+      {/* Booking Form Modal */}
+      <BookingForm
         isOpen={isBookingModalOpen}
         onClose={() => setIsBookingModalOpen(false)}
-        doctor={doctor}
       />
     </div>
   );

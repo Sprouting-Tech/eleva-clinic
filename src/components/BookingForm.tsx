@@ -7,8 +7,17 @@ import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 // shadcn/ui
 import { Calendar, CalendarDayButton } from "@/components/ui/calendar";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 
 //form type
@@ -34,7 +43,13 @@ function toISODate(d: Date) {
   return `${y}-${m}-${day}`;
 }
 
-export default function BookingForm() {
+export default function BookingForm({
+  isOpen = true,
+  onClose,
+}: {
+  isOpen?: boolean;
+  onClose?: () => void;
+}) {
   const [form, setForm] = useState<Form>({
     name: "",
     phone: "",
@@ -49,7 +64,7 @@ export default function BookingForm() {
   // Temp date inside calendar modal
   const [tempDate, setTempDate] = useState<Date | undefined>(undefined);
 
-  const isNameValid = useMemo(()=>{
+  const isNameValid = useMemo(() => {
     const trimed = form.name.trim();
     return /^\S+\s+\S+/.test(trimed);
   }, [form.name]);
@@ -99,11 +114,11 @@ export default function BookingForm() {
   }
 
   //UI
-  return (
-    <div className="mx-auto max-w-4xl rounded-[28px] bg-stone-100 p-6 md:p-8">
+  const formContent = (
+    <div className="p-4">
       <form
         onSubmit={submit}
-        className="rounded-[28px] bg-white p-6 md:p-8 shadow-sm ring-1 ring-stone-200 mx-auto max-w-[380px] md:max-w-none"
+        className="rounded-[20px] bg-transparent p-4 md:p-6 mx-auto max-w-[800px]"
       >
         {/* Row: Name + Phone */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
@@ -331,7 +346,6 @@ export default function BookingForm() {
                 "md:w-[487px] md:max-h-none md:px-6 md:pt-6 md:pb-6",
               ].join(" ")}
             >
-
               {/* Morning / Evening tabs */}
               <div className="mb-3">
                 <div className="flex items-end justify-center gap-8">
@@ -418,15 +432,19 @@ export default function BookingForm() {
             size="xl"
             variant="main"
             className="rounded-[15px] border-2 border-stone-900 bg-white px-6 py-3 text-sm text-black/73"
-            onClick={() =>
+            onClick={() => {
               setForm({
                 name: "",
                 phone: "",
                 date: "",
                 time: "",
                 period: "morning",
-              })
-            }
+              });
+              // Close modal
+              if (onClose) {
+                onClose();
+              }
+            }}
           >
             Cancel
           </Button>
@@ -447,5 +465,20 @@ export default function BookingForm() {
         </div>
       </form>
     </div>
+  );
+
+  // Always return as modal with specified size
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent
+        className="max-h-[95vh] p-0 w-[calc(100vw-24px)] max-w-[720px] md:max-w-[760px]"
+        showCloseButton={false}
+      >
+        <DialogHeader className="sr-only">
+          <DialogTitle>Book Appointment</DialogTitle>
+        </DialogHeader>
+        <main>{formContent}</main>
+      </DialogContent>
+    </Dialog>
   );
 }
