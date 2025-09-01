@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Doctor } from "@/types/content";
 import Image from "next/image";
+import Link from "next/link";
 import BookingForm from "@/components/BookingForm";
 
 export default function DoctorPreviewCard({ doctor }: { doctor: Doctor }) {
@@ -23,10 +24,13 @@ export default function DoctorPreviewCard({ doctor }: { doctor: Doctor }) {
 
   // Shared doctor image component
   const DoctorImage = ({ className }: { className: string }) => (
-    <div className={`relative flex items-center justify-center ${className}`}>
+    <Link
+      href={`/treatments/${doctor.slug}`}
+      className={`relative flex items-center justify-center ${className} cursor-pointer group`}
+    >
       <ImageBackground />
       <div
-        className="relative w-full h-full flex items-center justify-center"
+        className="relative w-full h-full flex items-center justify-center transition-transform group-hover:scale-105"
         style={{ zIndex: 1 }}
       >
         <Image
@@ -41,7 +45,7 @@ export default function DoctorPreviewCard({ doctor }: { doctor: Doctor }) {
           }}
         />
       </div>
-    </div>
+    </Link>
   );
 
   // Shared doctor info component
@@ -68,6 +72,7 @@ export default function DoctorPreviewCard({ doctor }: { doctor: Doctor }) {
   // Shared CTA button component
   const CTAButton = () => (
     <div className="w-full lg:w-auto flex justify-center lg:justify-start mt-2 lg:mt-0">
+      {/* Make Appointment Button */}
       <button
         onClick={() => setIsBookingModalOpen(true)}
         className="px-6 py-3 bg-gradient-to-r from-[#AF674F] via-[#E28E72] to-[#AF674F] rounded-[100px] inline-flex justify-center items-center gap-2.5 cursor-pointer hover:opacity-90 transition-opacity"
