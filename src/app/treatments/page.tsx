@@ -4,7 +4,7 @@ import { doctors } from "@/data/doctors";
 import DoctorPreviewCard from "@/components/cards/DoctorPreviewCard";
 export default function Treatments() {
   return (
-    <div className="w-full max-w-[1600px] mx-auto px-4 md:px-[48px] space-y-10">
+    <div className="w-full max-w-[1600px] mx-auto px-4 pt-12 md:px-[48px] space-y-10">
       <section>
         <div className="self-stretch text-center justify-start text-token-color-main-button-color text-2xl md:text-4xl font-normal font-['Montserrat'] text-[#AF674F] mb-12">
           Meet Our Doctors

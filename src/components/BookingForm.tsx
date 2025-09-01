@@ -91,6 +91,20 @@ export default function BookingForm({
     if (openCalendar) setTempDate(selectedDate ?? new Date());
   }, [openCalendar]);
 
+  // Clear form when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setForm({
+        name: "",
+        phone: "",
+        date: "",
+        time: "",
+        period: "morning",
+      });
+      setSubmitted(false);
+    }
+  }, [isOpen]);
+
   //Updaters
   function onChange<K extends keyof Form>(key: K, v: string) {
     setSubmitted(false);
@@ -111,6 +125,11 @@ export default function BookingForm({
       description: `${form.name} • ${prettyDate} at ${form.time}`,
       duration: 4000,
     });
+
+    // Close modal after successful submission
+    if (onClose) {
+      onClose();
+    }
   }
 
   //UI
