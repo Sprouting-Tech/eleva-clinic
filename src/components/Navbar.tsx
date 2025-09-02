@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import Image from "next/image";
 
 
 interface NavLinkItem {
@@ -100,11 +101,13 @@ export default function Navbar() {
         style={{ padding: "16px" }}
       >
         <Link href="/" onClick={closeMenu} className="flex items-center gap-2 font-semibold">
-          <img 
+          <Image 
             src="/images/eleva_logo.png" 
             alt="Elevaclinic logo" 
+            width={43}
+            height={32}
             className="object-contain"
-            style={{ width: "43px", height: "32px" }}
+            priority
           />
         </Link>
         <button
@@ -148,10 +151,13 @@ export default function Navbar() {
           href="/" 
           className="flex items-center gap-2 font-semibold md:py-5 md:px-12"
         >
-          <img 
+          <Image 
             src="/images/eleva_logo.png" 
             alt="Elevaclinic logo" 
+            width={43}  // ← Added width
+            height={32} // ← Added height  
             className="object-contain w-[43px] h-[32px] md:w-[100px] md:h-[75px]"
+            priority    // ← Added priority for above-the-fold image
           />
         </Link>
 
