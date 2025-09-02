@@ -20,6 +20,7 @@ export default function Hero() {
         {/* IMAGE — mobile first; desktop move to the right */}
         <div className="relative order-1 mx-auto mt-[-10px] aspect-[4/5] w-full max-w-[420px] md:order-2 md:h-[640px] md:w-[56vw] md:max-w-none md:mr-[-8vw]">
           <Image
+            sizes="(max-width: 768px) 100vw, 56vw"
             src="/images/hero.png"
             alt="Two women with healthy skin representing Eleva Clinic’s gentle care"
             priority
