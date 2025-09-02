@@ -357,11 +357,9 @@ export default function BookingForm({
               align="center"
               className={[
                 // Center on MOBILE (viewport)
-                "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2",
+                "absolute -translate-x-1/2 -translate-y-52",
                 // Size
                 "w-[calc(100vw-24px)] max-w-[520px] max-h-[min(70vh,520px)] overflow-auto z-[50] rounded-[20px] border-0 bg-white shadow-2xl",
-                // Center on DESKTOP
-                "md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2",
                 "md:w-[487px] md:max-h-none md:px-6 md:pt-6 md:pb-6",
               ].join(" ")}
             >
