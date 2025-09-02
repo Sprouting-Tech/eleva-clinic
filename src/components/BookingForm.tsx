@@ -490,7 +490,7 @@ export default function BookingForm({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent
-        className="max-h-[95vh] p-0 w-[calc(100vw-24px)] max-w-[720px] md:max-w-[760px]"
+        className="max-h-[95vh] p-0 w-[calc(100vw-24px)] max-w-[720px] md:max-w-[800px]"
         showCloseButton={false}
       >
         <DialogHeader className="sr-only">
