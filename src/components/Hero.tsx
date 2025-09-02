@@ -24,6 +24,7 @@ export default function Hero() {
             alt="Two women with healthy skin representing Eleva Clinic’s gentle care"
             priority
             fill
+            sizes="(max-width: 768px) 100vw, 56vw"
             className="pointer-events-none select-none object-contain drop-shadow-[0_16px_48px_rgba(0,0,0,0.18)]"
           />
         </div>
