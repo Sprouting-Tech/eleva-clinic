@@ -51,7 +51,7 @@ function VerticalSlider<T>({
     >
       {/* Left Arrow */}
       <button
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-20 text-2xl text-[#A86A3D]"
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-20 text-2xl text-[#A86A3D] transition-all duration-200 hover:scale-110 hover:text-[#C98A5B] focus:outline-none"
         onClick={prev}
         aria-label="Previous"
         style={{ marginLeft: "24px" }}
@@ -105,7 +105,7 @@ function VerticalSlider<T>({
       </div>
       {/* Right Arrow */}
       <button
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-20 text-2xl text-[#A86A3D]"
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-20 text-2xl text-[#A86A3D] transition-all duration-200 hover:scale-110 hover:text-[#C98A5B] focus:outline-none"
         onClick={next}
         aria-label="Next"
         style={{ marginRight: "24px" }}

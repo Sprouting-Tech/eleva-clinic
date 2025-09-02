@@ -4,16 +4,19 @@ import Footer from "@/components/Footer";
 import { DM_Sans } from "next/font/google";
 import { Toaster } from "sonner";
 
-
 const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["300", "400", "500", "700"],
 });
 
-export const metadata = { 
-  title: "Eleva Clinic", 
+export const metadata = {
+  title: "Eleva Clinic",
   description: "Showcase",
-  viewport: "width=device-width, initial-scale=1" // Add viewport meta
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -25,9 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="min-h-screen flex flex-col">
         <Navbar />
-        <main className="flex-1 w-full">
-            {children}
-        </main>
+        <main className="flex-1 w-full">{children}</main>
         <Footer />
         <Toaster position="top-center" richColors />
       </body>

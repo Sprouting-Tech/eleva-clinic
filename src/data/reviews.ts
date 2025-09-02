@@ -17,7 +17,7 @@ export const reviews: Review[] = [
     avatar: "/images/pic.png"
   },
   {
-    id: "rv-2",
+    id: "rv-3",
     name: "Melisa",
     rating: 5,
     text: "Lorem ipsum dolor sit amet consectetur. Dui amet erat eu aliquet enim. Nunc tempus ultricies tristique metus in sem ac sed phasellus",
@@ -44,7 +44,7 @@ export const secondreviews: Review[] = [
     avatar: "/images/pic.png"
   },
   {
-    id: "rv-2",
+    id: "rv-3",
     name: "Melisa",
     rating: 5,
     text: "Lorem ipsum dolor sit amet consectetur. Dui amet erat eu aliquet enim. Nunc tempus ultricies tristique metus in sem ac sed phasellus",
