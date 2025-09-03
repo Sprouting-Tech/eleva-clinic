@@ -11,19 +11,17 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 
 interface Props {
-  params: {
-    slug: string;
-  };
+  params: { slug: string };
 }
 
 export default function DoctorProfilePage({ params }: Props) {
   const router = useRouter();
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
+  // Unwrap params (Next.js 15+)
+  const { slug } = params;
   // Find doctor by slug
-  const doctor: Doctor | undefined = doctors.find(
-    (doc) => doc.slug === params.slug,
-  );
+  const doctor: Doctor | undefined = doctors.find((doc) => doc.slug === slug);
 
   // If doctor not found, show 404
   if (!doctor) {
