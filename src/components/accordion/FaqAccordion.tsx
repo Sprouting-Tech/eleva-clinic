@@ -19,7 +19,7 @@ export default function FaqAccordion({ items }: { items: Item[] }) {
         return (
           <div
             key={index}
-            className={`w-full p-6 md:p-7 bg-gradient-to-r from-white via-white/80 to-rose-100/90 rounded-2xl shadow-[4px_4px_12px_0px_rgba(0,0,0,0.15)] border border-gray-200 flex flex-col items-start gap-6`}
+            className={`w-full p-6 md:p-7 bg-gradient-to-r from-white via-white/80 to-rose-100/90 rounded-2xl shadow-[4px_4px_12px_0px_rgba(0,0,0,0.15)] border border-gray-200 flex flex-col items-start`}
             style={{ alignSelf: "stretch" }}
           >
             <div
