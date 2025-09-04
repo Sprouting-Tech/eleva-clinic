@@ -115,7 +115,7 @@ export default function DoctorProfilePage({ params }: Props) {
             </div>
 
             {/* Education & Training Sections */}
-            <div className="bg-stone-50 p-8 md:p-12">
+            <div className="bg-gradient-to-r from-white via-white/80 to-rose-100/90 p-8 md:p-12">
               <div className="grid md:grid-cols-2 gap-8">
                 {/* Education */}
                 {doctor.study && doctor.study.length > 0 && (
@@ -143,7 +143,13 @@ export default function DoctorProfilePage({ params }: Props) {
                     <h2 className="text-2xl font-semibold text-stone-800 mb-6">
                       Training & Certifications
                     </h2>
-                    <div className="max-h-96 overflow-y-auto pr-2">
+                    <div
+                      className="max-h-96 overflow-y-auto pr-2"
+                      style={{
+                        scrollbarColor: "#F7CAC9 #F9F4F2", // rose + light bg
+                        scrollbarWidth: "thin",
+                      }}
+                    >
                       <ul className="space-y-3">
                         {doctor.training.map((item, index) => (
                           <li
