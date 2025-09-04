@@ -24,7 +24,7 @@ export default function Footer() {
             />
             <div className="   flex justify-between gap-2 md:gap-3">
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/elevaclinic/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
@@ -38,7 +38,7 @@ export default function Footer() {
                 />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/eleva_clinic/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -52,7 +52,7 @@ export default function Footer() {
                 />
               </a>
               <a
-                href="https://www.tiktok.com/explore"
+                href="https://www.tiktok.com/@eleva_clinic"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TikTok"
@@ -66,7 +66,7 @@ export default function Footer() {
                 />
               </a>
               <a
-                href="https://line.me"
+                href="https://page.line.me/757enuzp"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Line"
@@ -121,7 +121,7 @@ export default function Footer() {
             />
             <div className="flex justify-between gap-2 md:gap-3">
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/elevaclinic/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
@@ -135,7 +135,7 @@ export default function Footer() {
                 />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/eleva_clinic/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -149,7 +149,7 @@ export default function Footer() {
                 />
               </a>
               <a
-                href="https://www.tiktok.com/explore"
+                href="https://www.tiktok.com/@eleva_clinic"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TikTok"
@@ -163,7 +163,7 @@ export default function Footer() {
                 />
               </a>
               <a
-                href="https://line.me"
+                href="https://page.line.me/757enuzp"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Line"
