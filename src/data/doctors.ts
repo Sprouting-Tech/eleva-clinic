@@ -3,13 +3,13 @@ import { Doctor } from "@/types/content";
 export const doctors: Doctor[] = [
   {
     id: "doc-1",
-    slug: "dr-ploy",
+    slug: "หมอแป๊ก",
     name: "Dr.Nattamon Jivorareok",
-    nickname: "Dr. Paek",
+    nickname: "หมอแป๊ก",
     title: "Aesthetic Physician",
     image: "/images/image14.png",
     description:
-      "แพทย์ผู้เชี่ยวชาญด้านศัลยกรรมเสริมความงาม บอกความนี้ ยังมีความเชี่ยวชาญในการดูแลผิวพรรณทั้งการฉีดรอยแผลเป็น, ดูแลสุขภาพผิวให้อ่อนวัย และรักษาภายนอก ในปัจจุบันยังเป็นสมาชิกของแพทยสภาอีกด้วย",
+      "พญ.นัทธมน จิวรฤกษ์ แพทย์ผู้เชี่ยวชาญด้านศัลยกรรมเสริมความงาม นอกจากนี้ ยังมีความเชี่ยวชาญในการดูแลผิวพรรณทั้งการลบรอยแผลเป็น, ดูแลสุขภาพผิวให้อ่อนวัย และอีกมากมาย ในปัจจุบันยังเป็นสมาชิกของแพทยสภาอีกด้วย",
     study: [
       "แพทยศาสตร์บัณฑิต คณะแพทยศาสตร์ศิริราชพยาบาล มหาวิทยาลัยมหิดล",
       "วิทยาศาสตรมหาบัณฑิต สาขาวิชาเวชศาสตร์ชะลอวัยและฟื้นฟูสุขภาพ มหาวิทยาลัยธุรกิจบัณฑิตย์",
@@ -45,13 +45,13 @@ export const doctors: Doctor[] = [
   },
   {
     id: "doc-2",
-    slug: "dr-pee",
+    slug: "หมอแม็ค",
     name: "Dr. Naruphon Sastranuruk",
-    nickname: "Dr. Pee",
+    nickname: "หมอแม็ค",
     title: "Dermatologist",
     image: "/images/image13.png",
     description:
-      "รายละเอียดเกี่ยวกับแพทย์คนนี้ สามารถเพิ่มข้อมูลเพิ่มเติมได้ตามต้องการ",
+      "นพ.นฤพล ศาสตรานุรักษ์ แพทย์ประจำ Eleva Clinic แพทย์ผู้เชี่ยวชาญด้านศัลยกรรมเสริมความงาม นอกจากด้านการศัลยกรรมแล้ว ยังมีความเชี่ยวชาญในการดูแลผิวพรรณ และปัจจุบันยังเป็นสมาชิกของแพทย์สภาอีกด้วย",
     study: ["แพทยศาสตร์บัณฑิต คณะแพทยศาสตร์ศิริราชพยาบาล มหาวิทยาลัยมหิดล"],
     training: [
       "แพทยศาสตร์บัณฑิต คณะแพทยศาสตร์ศิริราชพยาบาล มหาวิทยาลัยมหิดล, 2551",
@@ -75,14 +75,5 @@ export const doctors: Doctor[] = [
       "Course participant of 5thInternational Thaicosderm Congress on Aesthetic Medicine (ITCAM) 2015",
       "Certificate in the 5th Annual Conference of the PAN Asia Academy of FPRS, Bangkok, Thailand, 2015",
     ],
-  },
-  {
-    id: "dr-chaiyakorn",
-    slug: "dr-chaiyakorn",
-    name: "Dr. Chaiyakorn",
-    nickname: "Dr. Chaiyakorn",
-    title: "Plastic Surgeon",
-    image: "/images/placeholder.jpg",
-    training: ["None"],
   },
 ];
