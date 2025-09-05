@@ -12,15 +12,20 @@ export type Doctor = {
   id: string;
   slug: string;
   name: string;
+  nickname?: string;
   title?: string;
   image: string;
+  description?: string;
+  study?: string[];
+  training?: string[];
 };
 export type Review = {
   id: string;
   name: string;
   rating: number;
   text: string;
-  image?: string;
+  image: string;
+  avatar: string;
 };
 export type Promotion = {
   id: string;
