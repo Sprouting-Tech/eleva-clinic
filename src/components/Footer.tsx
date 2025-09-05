@@ -200,7 +200,12 @@ export default function Footer() {
             </Link>
 
             <p className="font-[500] mb-5">Treatments</p>
-            <p className="font-[500] mb-5">Reviews</p>
+            <Link
+              href="/reviews"
+              className="font-[500] mb-5 block hover:text-[#B97A65]"
+            >
+              Reviews
+            </Link>
             <Link
               href="/contact"
               className="font-[500] mb-5 block hover:text-[#B97A65]"
