@@ -24,7 +24,7 @@ export default function Home() {
   return (
 
 
-    <>
+    <div className="mx-3xl:mx-auto">
       <Hero />
       <HomeSections />
       <div>
@@ -56,7 +56,7 @@ export default function Home() {
 
 
       </div>
-    </>
+    </div>
   );
 }
 

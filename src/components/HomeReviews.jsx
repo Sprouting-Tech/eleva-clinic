@@ -26,7 +26,7 @@ export default function HomeReviews() {
     }, []);
 
     return (
-        <div className="max-w-4xl mx-auto py-3 px-5">
+        <div className="max-w-5xl mx-auto py-3 px-5">
             <h2 className="mb-3 text-2xl font-[Montserrat] text-center text-[#AF674F]">
                 Reviews
             </h2>
