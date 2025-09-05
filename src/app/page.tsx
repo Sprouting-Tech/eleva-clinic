@@ -1,4 +1,3 @@
-
 // app/page.tsx
 "use client";
 
@@ -7,14 +6,12 @@ import Slider from "@/components/slider/Slider";
 import ServiceCard from "@/components/cards/ServiceCard";
 import { services } from "@/data/services";
 
-import HomeReviews from "@/components/HomeReviews"
-
+import HomeReviews from "@/components/HomeReviews";
 
 import HomeSections from "@/components/home/HomeSections";
 
 import FaqAccordion from "@/components/accordion/FaqAccordion";
 import { faqs } from "@/data/faqs";
-
 
 export default function Home() {
   const half = Math.ceil(faqs.length / 2);
@@ -22,16 +19,13 @@ export default function Home() {
   const rightFaqs = faqs.slice(half);
 
   return (
-
-
     <div className="mx-3xl:mx-auto">
       <Hero />
       <HomeSections />
       <div>
         <HomeReviews />
-
       </div>
-      <div className="w-full max-w-[1600px] mx-auto px-4 md:px-[48px] space-y-10 pb-12">
+      <div className="w-full max-w-[1600px] mx-auto px-8 md:px-[48px] space-y-10 pb-12">
         {/* FAQ Section */}
         <section className="mt-16">
           <div className="text-center text-[#AF674F] text-2xl md:text-4xl font-normal font-['Montserrat'] mb-12">
@@ -52,12 +46,7 @@ export default function Home() {
             <FaqAccordion items={faqs} />
           </div>
         </section>
-
-
-
       </div>
     </div>
   );
 }
-
-
