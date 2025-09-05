@@ -8,7 +8,7 @@ export default function ServicesSection() {
   const featured = services.filter((s) => s.featured);
 
   return (
-    <section>
+    <section className="px-4 md:px-8">
       <h2 className="text-center mb-6 text-xl font-semibold text-[#b87a63]">
         Our Services
       </h2>
