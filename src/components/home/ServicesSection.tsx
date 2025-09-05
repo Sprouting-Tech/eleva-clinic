@@ -8,7 +8,7 @@ export default function ServicesSection() {
   const featured = services.filter((s) => s.featured);
 
   return (
-    <section className="px-4 md:px-8">
+    <section className="max-w-6xl mx-auto px-4">
       <h2 className="text-center mb-6 text-xl font-semibold text-[#b87a63]">
         Our Services
       </h2>
@@ -16,14 +16,17 @@ export default function ServicesSection() {
       {featured.length >= 3 ? (
         <Slider
           items={featured}
-          perView="auto"                       // ⬅️ let the slide width be content-based
-          space={-50}                           // ⬅️ tighter gap between slides
-          centered={false}                     // ⬅️ pack from the left, no centering
+          perView={1}
+          breakpoints={{
+            640: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+          space={16}
+          centered={false}
           loop
-          controls={false}                     // swipe-only, no arrows/dots
+          controls={false}
           renderItem={(s) => (
-            // ⬅️ Fixed slide widths so cards are compact
-            <div className="w-[260px] sm:w-[280px] md:w-[300px]">
+            <div className="w-full max-w-[340px]">
               <ServiceCard item={s} />
             </div>
           )}

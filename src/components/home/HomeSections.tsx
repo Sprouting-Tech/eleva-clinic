@@ -3,7 +3,7 @@ import ServicesSection from "./ServicesSection";
 
 export default function HomeSections() {
   return (
-    <div className="max-w-6xl space-y-14 py-8">
+    <div className="max-w-6xl mx-auto space-y-14 py-8">
       <PromotionsSection />
       <ServicesSection />
     </div>
